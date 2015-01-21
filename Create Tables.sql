@@ -15,6 +15,7 @@ CREATE TABLE [Vehicle]
 (
 	id int NOT NULL,
 	userEmail varchar(255) NOT NULL,
+	active bit NOT NULL,
 	make varchar(255) NOT NULL,
 	model varchar(255) NOT NULL,
 	year varchar(255) NOT NULL,
