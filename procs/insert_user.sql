@@ -2,14 +2,13 @@ USE [333-2014-Driftr]
 GO
 
 CREATE PROCEDURE [insert_user]
-(@Email_1 [varchar],
- @Name_2 [varchar],
- @PasswordHash_3 [binary],
- @PasswordSalt_4 [binary])
+	@Email_1 varchar(255),
+	@Name_2 varchar(255),
+	@PasswordHash_3 binary,
+	@PasswordSalt_4 binary
 AS
 
 -- Check if parameters are valid --
-
 IF (@Email_1 IS NULL) OR ((SELECT count(*) FROM [User] WHERE email = @Email_1) > 0)
 BEGIN
 	PRINT 'Email ' + @Email_1 + ' already in use'
@@ -40,5 +39,3 @@ INSERT INTO [User]
 VALUES (@Email_1, @Name_2, @PasswordHash_3, @PasswordSalt_4)
 
 RETURN 0
-
-GO

@@ -13,23 +13,24 @@ namespace DriftrWebAPI.Controllers
 
 		public BaseController()
 		{
-			string username = "";
-			string password = "";
-			string server = "";
-			string database = "";
+			string username = "333Winter2014Driftr";
+			string password = "driftr";
+			string server = "titan.csse.rose-hulman.edu";
+			string database = "333-2014-Driftr";
 			string connectionString = "user id=" + username + ";"
 				+ "password=" + password + ";"
 				+ "server=" + server + ";"
-				+ "Trusted_Connection=yes;"
+				+ "Trusted_Connection=false;"
 				+ "database=" + database + ";"
 				+ "connection timeout=30";
 			this.connection = new SqlConnection(connectionString);
+			this.connection.Open();
 		}
 
-		public void Dispose()
+		/*protected override void Dispose(bool disposing)
 		{
 			this.connection.Dispose();
 			base.Dispose();
-		}
+		}*/
 	}
 }
