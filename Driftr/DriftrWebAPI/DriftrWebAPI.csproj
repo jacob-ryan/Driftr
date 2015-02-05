@@ -216,10 +216,11 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="site\common.js" />
-    <Content Include="site\register.js" />
+    <Content Include="site\dashboard.html" />
     <Content Include="site\index.html" />
     <Content Include="site\index.js" />
     <Content Include="site\register.html" />
+    <Content Include="site\register.js" />
     <Content Include="site\style.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
