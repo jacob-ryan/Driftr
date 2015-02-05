@@ -18,7 +18,7 @@ namespace DriftrWebAPI.Controllers
 		[Authorize]
 		public IEnumerable<User> Get()
 		{
-			SqlDataReader reader = GetUser.exec(this.connection);
+			SqlDataReader reader = SprocUser.getAll(this.connection);
 			List<User> users = new List<User>();
 			while (reader.Read())
 			{
@@ -34,8 +34,12 @@ namespace DriftrWebAPI.Controllers
 		[Authorize]
 		public User Get(string email)
 		{
-			IEnumerable<User> users = Get();
-			return users.First(u => u.email == email);
+			SqlDataReader reader = SprocUser.get(this.connection, email);
+			reader.Read();
+			User user = new User();
+			user.email = reader["email"].ToString();
+			user.name = reader["name"].ToString();
+			return user;
 		}
 
 		// POST: api/User
@@ -45,13 +49,17 @@ namespace DriftrWebAPI.Controllers
 			byte[] salt = Passwords.createSalt(password);
 			byte[] hash = Passwords.createHash(password, salt);
 
-			InsertUser.exec(this.connection, user.email, user.name, hash, salt);
+			SprocUser.add(this.connection, user.email, user.name, hash, salt);
 		}
 
 		// PUT: api/User/5
 		[Authorize]
-		public void Put(int id, string password, User user)
+		public void Put(string password, User user)
 		{
+			byte[] salt = Passwords.createSalt(password);
+			byte[] hash = Passwords.createHash(password, salt);
+
+			SprocUser.update(this.connection, user.email, user.name, hash, salt);
 		}
 
 		// DELETE: api/User/5

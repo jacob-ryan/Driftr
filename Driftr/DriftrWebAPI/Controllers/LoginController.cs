@@ -25,28 +25,28 @@ namespace DriftrWebAPI.Controllers
 		// POST: api/Login
 		public HttpResponseMessage Post(Login login)
 		{
-			SqlDataReader reader = GetUser.exec(this.connection);
-			while (reader.Read())
+			SqlDataReader reader = SprocUser.get(this.connection, login.email);
+			reader.Read();
+			if (reader["email"].ToString() == login.email)
 			{
-				if (reader["email"].ToString() == login.email)
-				{
-					byte[] hash = (byte[]) reader["passwordHash"];
-					byte[] salt = (byte[]) reader["passwordSalt"];
+				byte[] hash = (byte[]) reader["passwordHash"];
+				byte[] salt = (byte[]) reader["passwordSalt"];
 
-					byte[] testHash = Passwords.createHash(login.password, salt);
-					if (testHash.SequenceEqual(hash))
-					{
-						FormsAuthentication.SetAuthCookie(login.email, true);
-						return Request.CreateResponse(HttpStatusCode.Created, "Yay");
-					}
-					else
-					{
-						return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid username/password");
-					}
+				byte[] testHash = Passwords.createHash(login.password, salt);
+				if (testHash.SequenceEqual(hash))
+				{
+					FormsAuthentication.SetAuthCookie(login.email, true);
+					return Request.CreateResponse(HttpStatusCode.Created, true);
+				}
+				else
+				{
+					return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid username/password");
 				}
 			}
-
-			return Request.CreateResponse(HttpStatusCode.BadRequest, "Unknown username");
+			else
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Unknown username");
+			}
 		}
 
 		// DELETE: api/Login
