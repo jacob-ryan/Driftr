@@ -11,7 +11,7 @@
 
 		Driftr.api("POST", "Login", data).done(function()
 		{
-			window.location = "welcome.html";
+			window.location = "dashboard.html";
 		});
 	});
 });
