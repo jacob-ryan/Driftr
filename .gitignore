@@ -125,9 +125,9 @@ DocProject/Help/html
 publish/
 
 # Publish Web Output
-*.Publish.xml
-*.pubxml
-*.publishproj
+###*.Publish.xml
+###*.pubxml
+###*.publishproj
 
 # NuGet Packages Directory
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
