@@ -6,50 +6,58 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using DriftrWebAPI.Helpers;
 using DriftrWebAPI.Models;
+using DriftrWebAPI.Sprocs;
 
 namespace DriftrWebAPI.Controllers
 {
-    public class UserController : BaseController
-    {
-        // GET: api/User
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+	public class UserController : BaseController
+	{
+		// GET: api/User
+		[Authorize]
+		public IEnumerable<User> Get()
+		{
+			SqlDataReader reader = GetUser.exec(this.connection);
+			List<User> users = new List<User>();
+			while (reader.Read())
+			{
+				User user = new User();
+				user.email = reader["email"].ToString();
+				user.name = reader["name"].ToString();
+				users.Add(user);
+			}
+			return users;
+		}
 
-        // GET: api/User/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+		// GET: api/User?email=abc@xyz.com
+		[Authorize]
+		public User Get(string email)
+		{
+			IEnumerable<User> users = Get();
+			return users.First(u => u.email == email);
+		}
 
-        // POST: api/User
-        public void Post(User user)
-        {
-			SqlCommand command = new SqlCommand("EXEC [insert_user] @Email, @Name, @PasswordHash, @PasswordSalt;", this.connection);
-			SqlParameter pEmail = new SqlParameter("@Email", user.email);
-			SqlParameter pName = new SqlParameter("@Name", user.name);
-			SqlParameter pPasswordHash = new SqlParameter("@PasswordHash", SqlDbType.Binary);
-			pPasswordHash.Value = new byte[] { 0x0 };
-			SqlParameter pPasswordSalt = new SqlParameter("@PasswordSalt", SqlDbType.Binary);
-			pPasswordSalt.Value = new byte[] { 0x1 };
+		// POST: api/User
+		[Authorize]
+		public void Post(string password, User user)
+		{
+			byte[] salt = Passwords.createSalt(password);
+			byte[] hash = Passwords.createHash(password, salt);
 
-			command.Parameters.Add(pEmail);
-			command.Parameters.Add(pName);
-			command.Parameters.Add(pPasswordHash);
-			command.Parameters.Add(pPasswordSalt);
-			command.ExecuteReader();
-        }
+			InsertUser.exec(this.connection, user.email, user.name, hash, salt);
+		}
 
-        // PUT: api/User/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+		// PUT: api/User/5
+		[Authorize]
+		public void Put(int id, string password, User user)
+		{
+		}
 
-        // DELETE: api/User/5
-        public void Delete(int id)
-        {
-        }
-    }
+		// DELETE: api/User/5
+		[Authorize]
+		public void Delete(int id)
+		{
+		}
+	}
 }
