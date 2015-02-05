@@ -43,7 +43,6 @@ namespace DriftrWebAPI.Controllers
 		}
 
 		// POST: api/User
-		[Authorize]
 		public void Post(string password, User user)
 		{
 			byte[] salt = Passwords.createSalt(password);

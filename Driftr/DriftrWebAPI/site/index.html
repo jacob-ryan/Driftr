@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--<link rel="icon" href="favicon location">-->
 
-	<title>Driftr - Register</title>
+	<title>Driftr - Login</title>
 
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="common.js"></script>
-	<script src="register.js"></script>
+	<script src="index.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -23,8 +23,8 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.html">Login</a></li>
-					<li class="active"><a href="register.html">Register</a></li>
+					<li class="active"><a href="index.html">Login</a></li>
+					<li><a href="register.html">Register</a></li>
 				</ul>
 			</div>
 		</div>
@@ -32,13 +32,12 @@
 
 	<div class="container">
 		<div class="row">
-			<h1>Register</h1>
+			<h1>Login</h1>
 			<div class="col-md-4">
 				<form>
-					<input type="text" class="form-control" id="register-name" placeholder="Name" />
-					<input type="email" class="form-control" id="register-email" placeholder="Email" />
-					<input type="password" class="form-control" id="register-password" placeholder="Password" />
-					<button type="submit" class="btn btn-block btn-primary">Register</button>
+					<input type="email" class="form-control" id="login-email" placeholder="Email" />
+					<input type="password" class="form-control" id="login-password" placeholder="Password" />
+					<button type="submit" class="btn btn-block btn-primary">Login</button>
 				</form>
 			</div>
 		</div>
