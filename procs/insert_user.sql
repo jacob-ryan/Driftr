@@ -8,8 +8,8 @@ GO
 CREATE PROCEDURE [insert_user]
 	@Email_1 varchar(255),
 	@Name_2 varchar(255),
-	@PasswordHash_3 binary,
-	@PasswordSalt_4 binary
+	@PasswordHash_3 binary(64),
+	@PasswordSalt_4 binary(64)
 AS
 
 -- Check if parameters are valid --

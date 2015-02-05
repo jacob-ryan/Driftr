@@ -6,53 +6,39 @@ DROP PROCEDURE [update_user]
 GO
 
 CREATE PROCEDURE [update_user]
-(@OldEmail_1 [varchar]=NULL,
- @NewEmail_2 [varchar]=NULL,
- @Name_3 [varchar]=NULL,
- @PasswordHash_4 [binary]=NULL,
- @PasswordSalt_5 [binary]=NULL)
+(@email_1 [varchar]=NULL,
+ @Name_2 [varchar]=NULL,
+ @PasswordHash_3 [binary]=NULL,
+ @PasswordSalt_4 [binary]=NULL)
 AS
 
-IF (((SELECT count(*) FROM [User] WHERE email = @OldEmail_1)) = 0 OR @OldEmail_1 IS NULL)
+IF (((SELECT count(*) FROM [User] WHERE email = @email_1)) = 0 OR @email_1 IS NULL)
 BEGIN
 	PRINT 'Email does not exist'
 	RETURN 1
 END
 
-IF (((SELECT count(*) FROM [User] WHERE email = @NewEmail_2)) > 0)
+IF ((LEN(@Name_2) <= 0))
 BEGIN
-	PRINT 'Email ' + @NewEmail_2 + ' already in use'
+	PRINT 'Name must be at least 1 character long'
 	RETURN 2
 END
 
-IF ((LEN(@Name_3) <= 0))
-BEGIN
-	PRINT 'Name must be at least 1 character long'
-	RETURN 3
-END
-
 -- update the table
-IF(@Name_3 IS NOT NULL)
+IF(@Name_2 IS NOT NULL)
 BEGIN
 	UPDATE [User]
-		SET name = @Name_3
-		WHERE email = @OldEmail_1
+		SET name = @Name_2
+		WHERE email = @email_1
 END
 
-IF(@PasswordHash_4 IS NOT NULL AND @PasswordSalt_5 IS NOT NULL)
+IF(@PasswordHash_3 IS NOT NULL AND @PasswordSalt_4 IS NOT NULL)
 BEGIN
 	UPDATE [User]
-		SET passwordHash = @PasswordHash_4, passwordSalt = @PasswordSalt_5
-		WHERE email = @OldEmail_1
+		SET passwordHash = @PasswordHash_3, passwordSalt = @PasswordSalt_4
+		WHERE email = @email_1
 END
 
-
-IF(@NewEmail_2 IS NOT NULL)
-BEGIN
-	UPDATE [User]
-		SET email = @NewEmail_2
-		WHERE email = @OldEmail_1
-END
 
 RETURN 0
 GO
