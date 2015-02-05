@@ -9,6 +9,7 @@ namespace DriftrWebAPI.Models
 	{
 		public int id { get; set; }
 		public string userEmail { get; set; }
+		public bool active { get; set; }
 		public string make { get; set; }
 		public string model { get; set; }
 		public int year { get; set; }
