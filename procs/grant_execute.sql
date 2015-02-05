@@ -1,0 +1,12 @@
+USE [333-2014-Driftr]
+
+GRANT EXECUTE ON [insert_event] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [insert_friend] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [insert_location] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [insert_user] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [insert_vehicle] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [select_all_users] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [select_user] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [update_event] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [update_user] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [update_vehicle] TO [333Winter2014Driftr]

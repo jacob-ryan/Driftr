@@ -1,6 +1,10 @@
 USE [333-2014-Driftr]
 GO
 
+IF OBJECT_ID('update_event', 'P') IS NOT NULL
+DROP PROCEDURE [update_event]
+GO
+
 CREATE PROCEDURE [update_event]
 (@id_1 int,
  @locationId_2 int,
@@ -30,7 +34,7 @@ END
 IF (@eventDate_3 IS NOT NULL)
 BEGIN
 	UPDATE [Event]
-		SET eventDate = eventDate_3
+		SET eventDate = @eventDate_3
 		WHERE id = @id_1
 END
 

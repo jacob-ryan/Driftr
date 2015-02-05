@@ -1,9 +1,10 @@
 USE [333-2014-Driftr]
 GO
-/*
+
+IF OBJECT_ID('update_vehicle', 'P') IS NOT NULL
 DROP PROCEDURE [update_vehicle]
 GO
-*/
+
 CREATE PROCEDURE [update_vehicle]
 (@id_1 int,
  @active_2 bit=NULL,

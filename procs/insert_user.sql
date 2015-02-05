@@ -1,6 +1,10 @@
 USE [333-2014-Driftr]
 GO
 
+IF OBJECT_ID('insert_user', 'P') IS NOT NULL
+DROP PROCEDURE [insert_user]
+GO
+
 CREATE PROCEDURE [insert_user]
 	@Email_1 varchar(255),
 	@Name_2 varchar(255),

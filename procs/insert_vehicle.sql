@@ -1,6 +1,10 @@
 USE [333-2014-Driftr]
 GO
 
+IF OBJECT_ID('insert_vehicle', 'P') IS NOT NULL
+DROP PROCEDURE [insert_vehicle]
+GO
+
 CREATE PROCEDURE [insert_vehicle]
 (@userEmail_1 varchar(255),
  @active_2 bit=1,

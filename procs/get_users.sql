@@ -1,0 +1,14 @@
+USE [333-2014-Driftr]
+GO
+
+IF OBJECT_ID('get_users', 'P') IS NOT NULL
+DROP PROCEDURE [get_users]
+GO
+
+CREATE PROCEDURE [get_users]
+AS
+
+SELECT * FROM [User]
+
+RETURN 0
+GO

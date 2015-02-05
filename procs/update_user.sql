@@ -1,6 +1,10 @@
 USE [333-2014-Driftr]
 GO
 
+IF OBJECT_ID('update_user', 'P') IS NOT NULL
+DROP PROCEDURE [update_user]
+GO
+
 CREATE PROCEDURE [update_user]
 (@OldEmail_1 [varchar]=NULL,
  @NewEmail_2 [varchar]=NULL,
