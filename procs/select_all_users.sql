@@ -1,0 +1,10 @@
+USE [333-2014-Driftr]
+GO
+
+CREATE PROCEDURE [select_all_users]
+AS
+
+SELECT * FROM [User]
+
+RETURN 0
+GO

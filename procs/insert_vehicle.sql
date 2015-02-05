@@ -2,13 +2,13 @@ USE [333-2014-Driftr]
 GO
 
 CREATE PROCEDURE [insert_vehicle]
-(@userEmail_1 [varchar],
- @active_2 [bit]=1,
- @make_3 [varchar]=NULL,
- @model_4 [varchar]=NULL,
- @year_5 [varchar]=NULL,
- @color_6 [varchar]=NULL,
- @description_7 [varchar]=NULL)
+(@userEmail_1 varchar(255),
+ @active_2 bit=1,
+ @make_3 varchar(100)=NULL,
+ @model_4 varchar=NULL,
+ @year_5 varchar(4)=NULL,
+ @color_6 varchar(100)=NULL,
+ @description_7 varchar(MAX)=NULL)
 AS
 
 -- Check if parameters are valid --
@@ -29,7 +29,7 @@ END
 
 INSERT INTO [Vehicle]
 ([userEmail], [active], [make], [model], [year], [color], [description])
-VALUES (@userEmail_1, @active_2, @make_3, @model_4, @year_5, @color_6)
+VALUES (@userEmail_1, @active_2, @make_3, @model_4, @year_5, @color_6, @description_7)
 
 RETURN 0
 
