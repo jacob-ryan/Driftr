@@ -17,42 +17,44 @@ namespace DriftrWebAPI.Controllers
 	{
 		// GET: api/Login
 		[Authorize]
-		public User Get()
+		public HttpResponseMessage Get()
 		{
-			return CurrentUser.get();
+			return Request.CreateResponse(HttpStatusCode.OK, CurrentUser.get());
 		}
 
 		// POST: api/Login
-		[Authorize]
-		public void Post(Login login)
+		public HttpResponseMessage Post(Login login)
 		{
 			SqlDataReader reader = GetUser.exec(this.connection);
 			while (reader.Read())
 			{
 				if (reader["email"].ToString() == login.email)
 				{
-					byte[] hash = (byte[]) reader["hash"];
-					byte[] salt = (byte[]) reader["salt"];
+					byte[] hash = (byte[]) reader["passwordHash"];
+					byte[] salt = (byte[]) reader["passwordSalt"];
 
 					byte[] testHash = Passwords.createHash(login.password, salt);
 					if (testHash.SequenceEqual(hash))
 					{
 						FormsAuthentication.SetAuthCookie(login.email, true);
+						return Request.CreateResponse(HttpStatusCode.Created, "Yay");
 					}
 					else
 					{
-						throw new Exception("Invalid username/password");
+						return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid username/password");
 					}
-					return;
 				}
 			}
+
+			return Request.CreateResponse(HttpStatusCode.BadRequest, "Unknown username");
 		}
 
 		// DELETE: api/Login
 		[Authorize]
-		public void Delete()
+		public HttpResponseMessage Delete()
 		{
 			FormsAuthentication.SignOut();
+			return Request.CreateResponse(HttpStatusCode.NoContent);
 		}
 	}
 }
