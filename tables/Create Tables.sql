@@ -13,7 +13,7 @@ CREATE TABLE [User]
 
 CREATE TABLE [Vehicle]
 (
-	id int NOT NULL,
+	id int IDENTITY(1,1),
 	userEmail varchar(255) NOT NULL,
 	active bit NOT NULL,
 	make varchar(255) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE [Friend]
 
 CREATE TABLE [Location]
 (
-	id int NOT NULL,
+	id int IDENTITY(1,1),
 	address varchar(255) NOT NULL,
 	city varchar(255) NOT NULL,
 	state char(2) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE [Location]
 
 CREATE TABLE [Event]
 (
-	id int NOT NULL,
+	id int IDENTITY(1,1),
 	userEmail varchar(255) NOT NULL,
 	locationId int NOT NULL,
 	eventDate datetime NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE [Event]
 CREATE TABLE [EventParticipant]
 (
 	userEmail varchar(255) NOT NULL,
-	eventId int NOT NULL,
+	eventId int IDENTITY(1,1),
 	placement int NOT NULL,
 
 	PRIMARY KEY(userEmail, eventId),
@@ -76,7 +76,7 @@ CREATE TABLE [EventParticipant]
 
 CREATE TABLE [Preferences]
 (
-	id int NOT NULL,
+	id int IDENTITY(1,1),
 	userEmail varchar(255) NOT NULL,
 	rating int NOT NULL,
 	type varchar(255) NOT NULL,
