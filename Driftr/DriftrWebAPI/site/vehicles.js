@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     Driftr.api("GET", "Vehicle", null).done(function (vehicles) {
-        //console.log(vehicles);
+        console.log(vehicles);
     });
 
     $("form").on("submit", function (e) {
