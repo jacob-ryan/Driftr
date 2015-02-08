@@ -1,1 +1,0 @@
-Need to change one of the update scripts so when an email is changed it is updated in the vehicle table as well

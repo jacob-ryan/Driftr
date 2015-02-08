@@ -32,9 +32,10 @@ namespace DriftrWebAPI.Sprocs
 			command.ExecuteNonQuery();
 		}
 
-		public static void update(SqlConnection connection, string userEmail, bool active, string make, string model, int year, string color, string description)
+		public static void update(SqlConnection connection, int id, string userEmail, bool active, string make, string model, int year, string color, string description)
 		{
-			SqlCommand command = new SqlCommand("EXEC [update_vehicle] @UserEmail, @Active, @Make, @Model, @Year, @Color, @Description;", connection);
+			SqlCommand command = new SqlCommand("EXEC [update_vehicle] @Id, @UserEmail, @Active, @Make, @Model, @Year, @Color, @Description;", connection);
+			command.Parameters.Add(new SqlParameter("@Id", id));
 			command.Parameters.Add(new SqlParameter("@UserEmail", userEmail));
 			command.Parameters.Add(new SqlParameter("@Active", active));
 			command.Parameters.Add(new SqlParameter("@Make", make));

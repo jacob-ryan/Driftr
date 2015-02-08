@@ -44,5 +44,12 @@ namespace DriftrWebAPI.Controllers
 			SprocVehicle.add(this.connection, vehicle.userEmail, vehicle.active, vehicle.make, vehicle.model, vehicle.year, vehicle.color, vehicle.description);
 			return Request.CreateResponse(HttpStatusCode.Created, true);
 		}
+
+		// PUT: api/Vehicle/<id>
+		public HttpResponseMessage Put(int id, Vehicle vehicle)
+		{
+			SprocVehicle.update(this.connection, id, vehicle.userEmail, vehicle.active, vehicle.make, vehicle.model, vehicle.year, vehicle.color, vehicle.description);
+			return Request.CreateResponse(HttpStatusCode.Created, true);
+		}
 	}
 }
