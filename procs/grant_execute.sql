@@ -13,3 +13,6 @@ GRANT EXECUTE ON [update_user] TO [333Winter2014Driftr]
 GRANT EXECUTE ON [update_vehicle] TO [333Winter2014Driftr]
 GRANT EXECUTE ON [select_location] TO [333Winter2014Driftr]
 GRANT EXECUTE ON [select_all_locations] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [select_event] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [select_all_events] TO [333Winter2014Driftr]
+
