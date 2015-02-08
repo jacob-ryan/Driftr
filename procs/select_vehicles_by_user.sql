@@ -1,11 +1,11 @@
 USE [333-2014-Driftr]
 GO
 
-IF OBJECT_ID('select_vehicle_by_user', 'P') IS NOT NULL
+IF OBJECT_ID('select_vehicles_by_user', 'P') IS NOT NULL
 DROP PROCEDURE [select_vehicle_by_user]
 GO
 
-CREATE PROCEDURE [select_vehicle_by_user]
+CREATE PROCEDURE [select_vehicles_by_user]
 @email_1 varchar(255)
 AS
 
