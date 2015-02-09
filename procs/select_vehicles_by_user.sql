@@ -2,7 +2,7 @@ USE [333-2014-Driftr]
 GO
 
 IF OBJECT_ID('select_vehicles_by_user', 'P') IS NOT NULL
-DROP PROCEDURE [select_vehicle_by_user]
+DROP PROCEDURE [select_vehicles_by_user]
 GO
 
 CREATE PROCEDURE [select_vehicles_by_user]
