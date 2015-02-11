@@ -9,6 +9,6 @@ namespace DriftrWebAPI.Models
 	{
 		public string userEmail { get; set; }
 		public int eventId { get; set; }
-		public int placement { get; set; }
+		public int? placement { get; set; }
 	}
 }
