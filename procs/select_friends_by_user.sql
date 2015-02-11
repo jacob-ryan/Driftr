@@ -21,14 +21,14 @@ BEGIN
 	RETURN 2
 END
 
-DECLARE @all_friends TABLE(friend varchar(255))
+DECLARE @all_friends TABLE(userEmailA varchar(255), userEmailB varchar(255), relation varchar(255))
 
 INSERT INTO @all_friends
-SELECT userEmailB FROM dbo.Friend 
+SELECT userEmailA, userEmailB, relation  FROM dbo.Friend 
 WHERE userEmailA = @email_1
 
 INSERT INTO @all_friends
-SELECT userEmailA FROM dbo.Friend 
+SELECT userEmailB, userEmailA, relation FROM dbo.Friend 
 WHERE userEmailB = @email_1
 
 SELECT * FROM @all_friends

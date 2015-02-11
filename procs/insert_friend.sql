@@ -30,6 +30,13 @@ BEGIN
 	RETURN 3
 END
 
+IF(((SELECT count(*) FROM [Friend] WHERE userEmailA = @userEmailA_1 AND userEmailB = @userEmailB_2) > 0) OR 
+	(SELECT count(*) FROM [Friend] WHERE userEmailB = @userEmailA_1 AND userEmailA = @userEmailB_2) > 0)
+BEGIN
+	PRINT 'Friend already exists'
+	RETURN 4
+END
+
 -- Insert into User Table --
 INSERT INTO [Friend]
 ([userEmailA], [userEmailB], [relation])
