@@ -7,29 +7,34 @@ $(document).ready(function () {
             console.log(events);
             for (var i = 0; i < events.length; i++) {
                 var event = events[i].locationId + " / " + events[i].theme + " / "
-                    + new Date(events[i].date).toDateString();
+                    + new Date(events[i].date).toDateString() + "  ";
+                console.log(event);
 
                 var li = document.createElement("li");
                 li.innerHTML = event;
                 document.getElementById("eventlist").appendChild(li);
-            }
 
-            document.getElementById("joinbutton").onclick = function () {
-                console.log(events[0]);
-                
-                var data = {
-                    userEmail: curUser.email,
-                    eventID: 1,
-                    placement: 0
-                };
+                var button = document.createElement("button");
+                button.innerHTML = "Join";
+                li.appendChild(button);
 
-                Driftr.api("POST", "EventParticipant", data).done(function () {
-                    window.location = "dashboard.html";
-                });
-
+                button.onclick = setupJoinButton;
             }
         });
     });
+
+    setupJoinButton = function (event, email) {
+        console.log(event.id);
+
+        var data = {
+            userEmail: email,
+            eventID: event.id,
+            placement: 0
+        };
+        Driftr.api("POST", "EventParticipant", data).done(function () {
+            window.location = "dashboard.html";
+        });
+    };
 
 
     $("form").on("submit", function (e) {
