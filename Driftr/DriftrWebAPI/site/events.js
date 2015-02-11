@@ -13,6 +13,21 @@ $(document).ready(function () {
                 li.innerHTML = event;
                 document.getElementById("eventlist").appendChild(li);
             }
+
+            document.getElementById("joinbutton").onclick = function () {
+                console.log(events[0]);
+                
+                var data = {
+                    userEmail: curUser.email,
+                    eventID: 1,
+                    placement: 0
+                };
+
+                Driftr.api("POST", "EventParticipant", data).done(function () {
+                    window.location = "dashboard.html";
+                });
+
+            }
         });
     });
 
@@ -32,9 +47,11 @@ $(document).ready(function () {
             };
 
             Driftr.api("POST", "Event", data).done(function () {
-                window.location = "dashboard.html";
+                window.location = "events.html";
             });
         });
 
     });
+
+
 });

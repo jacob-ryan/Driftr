@@ -11,7 +11,7 @@
 			for (var i = 0; i < vehicles.length; i += 1)
 			{
 				var vehicle = vehicles[i];
-				$("#dashboard-cards").append("<li>" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</li>");
+				$("#dashboard-cars").append("<li>" + vehicle.year + " " + vehicle.make + " " + vehicle.model + "</li>");
 			}
 
 			Driftr.api("GET", "Friend?email=" + user.email, null).done(function(friends)
