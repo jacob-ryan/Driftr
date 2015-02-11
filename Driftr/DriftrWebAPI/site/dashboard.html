@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="common.js"></script>
-    <script src="index.js"></script>
+    <script src="dashboard.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -35,7 +35,26 @@
 
     <div class="container">
         <h1>Dashboard</h1>
-        <h3>Coming soon!</h3>
+
+        <h3>Your information:</h3>
+		<div>
+			Name: <span id="dashboard-name"></span>
+		</div>
+		<div>
+			Email: <span id="dashboard-email"></span>
+		</div>
+
+		<h3>Your cars (<span id="dashboard-car-count"></span>):</h3>
+		<ul id="dashboard-cars">
+		</ul>
+
+		<h3>Your friends (<span id="dashboard-friend-count"></span>):</h3>
+		<ul id="dashboard-friends">
+		</ul>
+
+		<h3>Your events (<span id="dashboard-event-count"></span>):</h3>
+		<ul id="dashboard-events">
+		</ul>
     </div>
 </body>
 </html>
