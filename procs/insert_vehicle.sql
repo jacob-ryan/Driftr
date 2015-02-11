@@ -8,10 +8,10 @@ GO
 CREATE PROCEDURE [insert_vehicle]
 (@userEmail_1 varchar(255),
  @active_2 bit=1,
- @make_3 varchar(100)=NULL,
- @model_4 varchar=NULL,
- @year_5 varchar(4)=NULL,
- @color_6 varchar(100)=NULL,
+ @make_3 varchar(255)=NULL,
+ @model_4 varchar(255)=NULL,
+ @year_5 int=NULL,
+ @color_6 varchar(255)=NULL,
  @description_7 varchar(MAX)=NULL)
 AS
 

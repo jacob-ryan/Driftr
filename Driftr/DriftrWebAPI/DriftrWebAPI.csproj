@@ -230,6 +230,8 @@
     <Content Include="site\register.html" />
     <Content Include="site\register.js" />
     <Content Include="site\style.css" />
+    <Content Include="site\vehicles.html" />
+    <Content Include="site\vehicles.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
