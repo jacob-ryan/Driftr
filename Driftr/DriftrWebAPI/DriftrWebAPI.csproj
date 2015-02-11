@@ -230,8 +230,10 @@
     <Content Include="site\events.js" />
     <Content Include="site\friends.html" />
     <Content Include="site\friends.js" />
+    <Content Include="site\logout.html" />
     <Content Include="site\index.html" />
     <Content Include="site\index.js" />
+    <Content Include="site\logout.js" />
     <Content Include="site\register.html" />
     <Content Include="site\register.js" />
     <Content Include="site\style.css" />
