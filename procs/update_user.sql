@@ -6,19 +6,19 @@ DROP PROCEDURE [update_user]
 GO
 
 CREATE PROCEDURE [update_user]
-(@email_1 [varchar]=NULL,
- @Name_2 [varchar]=NULL,
- @PasswordHash_3 [binary]=NULL,
- @PasswordSalt_4 [binary]=NULL)
+(@Email_1 varchar(255) = NULL,
+ @Name_2 varchar(255) = NULL,
+ @PasswordHash_3 binary(64) = NULL,
+ @PasswordSalt_4 binary(64) = NULL)
 AS
 
-IF (((SELECT count(*) FROM [User] WHERE email = @email_1)) = 0 OR @email_1 IS NULL)
+IF (@Email_1 IS NULL OR (SELECT count(*) FROM [User] WHERE email = @Email_1) = 0)
 BEGIN
 	PRINT 'Email does not exist'
 	RETURN 1
 END
 
-IF ((LEN(@Name_2) <= 0))
+IF ((LEN(@Name_2) = 0))
 BEGIN
 	PRINT 'Name must be at least 1 character long'
 	RETURN 2
@@ -38,7 +38,6 @@ BEGIN
 		SET passwordHash = @PasswordHash_3, passwordSalt = @PasswordSalt_4
 		WHERE email = @email_1
 END
-
 
 RETURN 0
 GO
