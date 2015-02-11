@@ -39,6 +39,7 @@ $(document).ready(function () {
 
     $("form").on("submit", function (e) {
         e.preventDefault();
+        console.log($("#addevent-date").val());
 
         Driftr.api("GET", "Login", null).done(function (curUser) {
             console.log(curUser.email);
@@ -46,7 +47,7 @@ $(document).ready(function () {
             var data = {
                 userEmail: curUser.email,
                 locationId: parseInt($("#addevent-location").val()),
-                date: new Date($("#addevent-date").val()),
+                date: $("#addevent-date").val(),
                 theme: $("#addevent-theme").val(),
                 description: $("#addevent-description").val()
             };
