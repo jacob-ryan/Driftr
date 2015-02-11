@@ -18,10 +18,27 @@ $(document).ready(function () {
                 button.innerHTML = "Join";
                 li.appendChild(button);
 
-                button.onclick = setupJoinButton;
+                button.onclick = scopepreserver(events[i].id, curUser.email);
+
             }
         });
     });
+
+    //http://www.howtocreate.co.uk/referencedvariables.html
+    function scopepreserver(id,email) {
+        return function () {
+            console.log(id);
+
+            var data = {
+                userEmail: email,
+                eventID: id,
+                placement: 0
+            };
+            Driftr.api("POST", "EventParticipant", data).done(function () {
+                window.location = "dashboard.html";
+            });
+        }
+    }
 
     setupJoinButton = function (event, email) {
         console.log(event.id);
