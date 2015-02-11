@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="common.js"></script>
-    <script src="vehicles.js"></script>
+    <script src="events.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -37,21 +37,19 @@
 
     <div class="container">
         <h1>Events</h1>
-        <h3>Current Cars:</h3>
-        <ul>
-            <li>dummy car 1</li>
-            <li>dummy car 2</li>
+        <h3>Current Events:</h3>
+        <ul id="eventlist">
+
         </ul>
 
         <h3>Add Car:</h3>
         <div class="col-md-4">
             <form>
-                <input type="text" class="form-control" id="addcar-make" placeholder="Make" />
-                <input type="text" class="form-control" id="addcar-model" placeholder="Model" />
-                <input type="text" class="form-control" id="addcar-color" placeholder="Color" />
-                <input type="text" class="form-control" id="addcar-year" placeholder="Model Year" />
-                <input type="text" class="form-control" id="addcar-description" placeholder="Description" />
-                <button type="submit" class="btn btn-block btn-primary">Add Car</button>
+                <input type="text" class="form-control" id="addevent-location" placeholder="Location" />
+                <input type="text" class="form-control" id="addevent-date" placeholder="Date" />
+                <input type="text" class="form-control" id="addevent-theme" placeholder="Theme" />
+                <input type="text" class="form-control" id="addevent-description" placeholder="Description" />
+                <button type="submit" class="btn btn-block btn-primary">Add Event</button>
             </form>
         </div>
     </div>

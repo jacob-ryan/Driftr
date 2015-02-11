@@ -227,6 +227,7 @@
     <Content Include="site\dashboard.html" />
     <Content Include="site\dashboard.js" />
     <Content Include="site\events.html" />
+    <Content Include="site\events.js" />
     <Content Include="site\friends.html" />
     <Content Include="site\friends.js" />
     <Content Include="site\index.html" />
