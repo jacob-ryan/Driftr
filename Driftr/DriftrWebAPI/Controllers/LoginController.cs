@@ -27,7 +27,7 @@ namespace DriftrWebAPI.Controllers
 		{
 			SqlDataReader reader = SprocUser.get(this.connection, login.email);
 			reader.Read();
-			if (reader["email"].ToString() == login.email)
+			if (reader.HasRows && reader["email"].ToString() == login.email)
 			{
 				byte[] hash = (byte[]) reader["passwordHash"];
 				byte[] salt = (byte[]) reader["passwordSalt"];

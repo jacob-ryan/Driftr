@@ -1,5 +1,10 @@
 ﻿$(document).ready(function()
 {
+	Driftr.api("GET", "Login", null).done(function()
+	{
+		window.location = "dashboard.html";
+	});
+
 	$("form").on("submit", function(e)
 	{
 		e.preventDefault();

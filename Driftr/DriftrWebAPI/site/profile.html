@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<link rel="icon" href="favicon location">-->
 
-    <title>Driftr - Events</title>
+    <title>Driftr - Profile</title>
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="common.js"></script>
-    <script src="events.js"></script>
+    <script src="profile.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -24,10 +24,10 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="events.html">Events</a></li>
+						<li><a href="events.html">Events</a></li>
 						<li><a href="vehicles.html">Cars</a></li>
 						<li><a href="friends.html">Friends</a></li>
-						<li><a href="profile.html">Profile</a></li>
+						<li class="active"><a href="profile.html">Profile</a></li>
 						<li><a href="logout.html">Log out</a></li>
 					</ul>
 				</div>
@@ -36,20 +36,15 @@
     </nav>
 
     <div class="container">
-        <h1>Events</h1>
-        <h3>Current Events:</h3>
-        <ul id="eventlist">
-
-        </ul>
-
-        <h3>Add Event:</h3>
+        <h1>Profile</h1>
+        <h3>Edit your information:</h3>
         <div class="col-md-4">
             <form>
-                <input type="text" class="form-control" id="addevent-location" placeholder="Location" />
-                <input type="text" class="form-control" id="addevent-date" placeholder="Date" />
-                <input type="text" class="form-control" id="addevent-theme" placeholder="Theme" />
-                <input type="text" class="form-control" id="addevent-description" placeholder="Description" />
-                <button type="submit" class="btn btn-block btn-primary">Add Event</button>
+                <input type="email" class="form-control" id="profile-email" readonly="readonly" />
+                <input type="text" class="form-control" id="profile-name" placeholder="Name" />
+                <input type="password" class="form-control" id="profile-password" placeholder="New password" />
+                <input type="password" class="form-control" id="profile-password-confirm" placeholder="Confirm password" />
+                <button type="submit" class="btn btn-block btn-primary">Update Profile</button>
             </form>
         </div>
     </div>

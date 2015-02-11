@@ -8,7 +8,7 @@ GO
 CREATE PROCEDURE [update_vehicle]
 (@id_1 int,
  @active_2 bit=NULL,
- @color_3 varchar(100)=NULL,
+ @color_3 varchar(255)=NULL,
  @description_4 varchar(MAX)=NULL)
 AS
 

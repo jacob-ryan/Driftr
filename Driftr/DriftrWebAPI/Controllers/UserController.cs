@@ -51,7 +51,7 @@ namespace DriftrWebAPI.Controllers
 			SprocUser.add(this.connection, user.email, user.name, hash, salt);
 		}
 
-		// PUT: api/User/5
+		// PUT: api/User?password=<new password>
 		[Authorize]
 		public void Put(string password, User user)
 		{
@@ -61,9 +61,9 @@ namespace DriftrWebAPI.Controllers
 			SprocUser.update(this.connection, user.email, user.name, hash, salt);
 		}
 
-		// DELETE: api/User/5
+		// DELETE: api/User?email=<email>
 		[Authorize]
-		public void Delete(int id)
+		public void Delete(string email)
 		{
 		}
 	}
