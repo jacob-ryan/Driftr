@@ -1,13 +1,29 @@
 ﻿$(document).ready(function () {
-    Driftr.api("GET", "Vehicle", null).done(function (vehicles) {
-        console.log(vehicles);
+    Driftr.api("GET", "Login", null).done(function (curUser) {
+        var email = curUser.email;
+        console.log(email);
+
+        Driftr.api("GET", "Vehicle?email=" + email, null).done(function (vehicles) {
+            console.log(vehicles);
+            for (var i = 0; i < vehicles.length; i++) {
+                console.log(JSON.stringify(vehicles[i]));
+            }
+        });
     });
+
 
     $("form").on("submit", function (e) {
         e.preventDefault();
 
         Driftr.api("GET", "Login", null).done(function (curUser) {
             var email = curUser.email;
+
+            Driftr.api("GET", "Vehicle?email="+email, null).done(function (vehicles) {
+                console.log(vehicles);
+                for (var i = 0; i < vehicles.length; i++) {
+                    console.log(JSON.stringify(vehicles[i]));
+                }
+            });
 
             console.log(email);
             var data = {
