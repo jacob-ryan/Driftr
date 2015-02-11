@@ -18,7 +18,7 @@ CREATE TABLE [Vehicle]
 	active bit NOT NULL,
 	make varchar(255) NOT NULL,
 	model varchar(255) NOT NULL,
-	year varchar(255) NOT NULL,
+	year int NOT NULL,
 	color varchar(255) NOT NULL,
 	description varchar(max) NOT NULL,
 
@@ -66,8 +66,8 @@ CREATE TABLE [Event]
 CREATE TABLE [EventParticipant]
 (
 	userEmail varchar(255) NOT NULL,
-	eventId int IDENTITY(1,1),
-	placement int NOT NULL,
+	eventId int,
+	placement int,
 
 	PRIMARY KEY(userEmail, eventId),
 	FOREIGN KEY(userEmail) REFERENCES [User](email),
