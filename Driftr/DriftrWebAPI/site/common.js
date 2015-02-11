@@ -15,7 +15,9 @@ Driftr.api = function(method, location, data)
 		defer.resolve(data);
 	}).fail(function(error)
 	{
-		alert("API failed\n" + error.status + "\n" + error.statusText + "\n" + error.responseJSON);
+		$(".error").remove();
+		$("body").append("<div class='error'><button class='btn btn-xs btn-danger pull-right' onclick='$(\".error\").remove();'>&times;</button><strong>API call failed:</strong><br>" + error.status + " - " + error.statusText + "<br>" + JSON.stringify(error.responseJSON) + "</div>");
+		defer.reject(error);
 	});
 
 	return defer.promise();
