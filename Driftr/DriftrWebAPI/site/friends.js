@@ -103,16 +103,11 @@ var deleteFriend = function()
 
 	Driftr.api("GET", "Login", null).done(function(curUser)
 	{
-		/* var email = curUser.email;
+		 var email = curUser.email;
  
-		 var data = {
-		 userEmailA: email,
-		 userEmailB: emailB
-		 };
- 
-		 Driftr.api("POST", "Friend", data).done(function(){
+		 Driftr.api("DELETE", "Friend?email="+email+"&otherEmail="+emailB, null).done(function(){
 			 window.location = "friends.html";
 		 });
-		 */
+		 
 	});
 };

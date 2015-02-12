@@ -1,5 +1,8 @@
 USE [333-2014-Driftr]
 
+GRANT EXECUTE ON [delete_eventparticipant] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [delete_friend] TO [333Winter2014Driftr]
+GRANT EXECUTE ON [delete_preference] TO [333Winter2014Driftr]
 GRANT EXECUTE ON [insert_event] TO [333Winter2014Driftr]
 GRANT EXECUTE ON [insert_eventparticipant] TO [333Winter2014Driftr]
 GRANT EXECUTE ON [insert_friend] TO [333Winter2014Driftr]
