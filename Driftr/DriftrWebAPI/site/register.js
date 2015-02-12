@@ -13,7 +13,7 @@
 		Driftr.api("POST", "User?password=" + password, data).done(function()
 		{
 			alert("Your account was created!");
-			window.location = "dashboard.html";
+			window.location = "index.html";
 		});
 	});
 });

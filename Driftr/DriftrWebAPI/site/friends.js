@@ -1,9 +1,8 @@
 /// <reference path="friends.html" />
 /// <reference path="friends.html" />
 /// <reference path="friends.html" />
-$(document).ready(function () {
-
-
+$(document).ready(function ()
+{
     Driftr.api("GET", "Login", null).done(function (curUser) {
         var email = curUser.email;
         Driftr.api("GET", "Friend?email="+email, null).done(function (friends) {
@@ -98,21 +97,22 @@ var populateFriends = function(friends) {
     $("#friendTable").append(table);
 };
 
-var deleteFriend = function () {
-    var emailB = this.getAttribute("value");
+var deleteFriend = function()
+{
+	var emailB = this.getAttribute("value");
 
-    Driftr.api("GET", "Login", null).done(function (curUser) {
-       /* var email = curUser.email;
-
-        var data = {
-        userEmailA: email,
-        userEmailB: emailB
-        };
-
-        Driftr.api("POST", "Friend", data).done(function(){
-            window.location = "friends.html";
-        });
-
-
-    });*/
-}
+	Driftr.api("GET", "Login", null).done(function(curUser)
+	{
+		/* var email = curUser.email;
+ 
+		 var data = {
+		 userEmailA: email,
+		 userEmailB: emailB
+		 };
+ 
+		 Driftr.api("POST", "Friend", data).done(function(){
+			 window.location = "friends.html";
+		 });
+		 */
+	});
+};

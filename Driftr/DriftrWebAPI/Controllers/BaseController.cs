@@ -27,10 +27,13 @@ namespace DriftrWebAPI.Controllers
 			this.connection.Open();
 		}
 
-		/*protected override void Dispose(bool disposing)
+		protected override void Dispose(bool disposing)
 		{
-			this.connection.Dispose();
-			base.Dispose();
-		}*/
+			if (disposing)
+			{
+				this.connection.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 	}
 }
