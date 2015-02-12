@@ -10,7 +10,10 @@ namespace DriftrWebAPI.Models
 	{
 		public static User get()
 		{
-			return new UserController().Get(HttpContext.Current.User.Identity.Name.ToString());
+			using (UserController controller = new UserController())
+			{
+				return controller.Get(HttpContext.Current.User.Identity.Name.ToString());
+			}
 		}
 	}
 }

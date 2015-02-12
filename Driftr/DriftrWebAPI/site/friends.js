@@ -61,7 +61,7 @@ var populateFriends = function(friends) {
     var tbody = document.createElement("tbody");
 
     for(var i=0; i<friends.length; i++) {
-        //build row and its columns
+    	//build row and its columns
         var bodyTr = document.createElement("tr");
         var bodyFriend = document.createElement("td");
         var bodyRelation = document.createElement("td");

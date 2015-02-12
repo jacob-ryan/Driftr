@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--<link rel="icon" href="favicon location">-->
+
+	<title>Driftr - Test Connections</title>
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="common.js"></script>
+</head>
+<body>
+	<script>
+		var i = 0;
+		var call = function()
+		{
+			Driftr.api("GET", "Login", null).done(function()
+			{
+				console.log("Completed API call " + (i + 1));
+				i += 1;
+				setTimeout(call, 1);
+			});
+		}
+
+		setTimeout(call, 3000);
+	</script>
+</body>
+</html>

@@ -22,17 +22,16 @@ namespace DriftrWebAPI.Controllers
 				+ "server=" + server + ";"
 				+ "Trusted_Connection=false;"
 				+ "database=" + database + ";"
-				+ "connection timeout=30";
+				+ "connection timeout=10";
 			this.connection = new SqlConnection(connectionString);
 			this.connection.Open();
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing)
-			{
-				this.connection.Dispose();
-			}
+			this.connection.Close();
+			this.connection.Dispose();
+			SqlConnection.ClearPool(this.connection);
 			base.Dispose(disposing);
 		}
 	}

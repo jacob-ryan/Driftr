@@ -239,6 +239,7 @@
     <Content Include="site\register.js" />
     <Content Include="site\style.css" />
     <Content Include="site\profile.html" />
+    <Content Include="site\testConnections.html" />
     <Content Include="site\vehicles.html" />
     <Content Include="site\vehicles.js" />
     <Content Include="Web.config" />
