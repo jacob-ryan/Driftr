@@ -36,45 +36,10 @@
     Driftr.api("GET", "Login", null).done(function (curUser) {
 
         Driftr.api("GET", "Event", null).done(function (events) {
-            console.log(events);
-            populateEvents(events);
-            /*
-            for (var i = 0; i < events.length; i++) {
-                var event = events[i].locationId + " / " + events[i].theme + " / "
-                    + new Date(events[i].date).toDateString() + "  ";
-                console.log(event);
-
-                //getLocation(events[i]);
-
-                var li = document.createElement("li");
-                li.innerHTML = event;
-                document.getElementById("eventlist").appendChild(li);
-
-                var button = document.createElement("button");
-                button.innerHTML = "Join";
-                button.className = "btn btn-sm btn-success";
-                li.appendChild(button);
-
-                button.onclick = scopepreserver(events[i].id, curUser.email);
-
-            }*/
+            //console.log(events);
+            populateEvents(events, curUser);
         });
     });
-
-
-
-    setupJoinButton = function (event, email) {
-        console.log(event.id);
-
-        var data = {
-            userEmail: email,
-            eventID: event.id,
-            placement: 0
-        };
-        Driftr.api("POST", "EventParticipant", data).done(function () {
-            window.location = "dashboard.html";
-        });
-    };
 
     window.submitForm = function()
     {
@@ -123,7 +88,7 @@ function scopepreserver(id, email) {
     }
 }
 
-var populateEvents = function (events) {
+var populateEvents = function (events, curUser) {
     //Create the base for the table
     var table = document.createElement("table");
     table.className = "table";
@@ -174,7 +139,7 @@ var populateEvents = function (events) {
         buttonDelete.innerHTML = "JOIN"
         buttonDelete.setAttribute("value", events[i]['id']);
         //set onClick action for delete button
-        //buttonDelete.onclick = scopepreserver(events[i].id, curUser.email);
+        buttonDelete.onclick = scopepreserver(events[i].id, curUser.email);
         //******************************************
 
         //populate the columns
