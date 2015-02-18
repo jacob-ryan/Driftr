@@ -1,4 +1,44 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function()
+{
+	$("form").validate({
+		errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+		errorElement: 'div',
+		errorPlacement: function(error, e)
+		{
+			e.parents('.form-group').append(error);
+		},
+		highlight: function(e)
+		{
+			$(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+			$(e).closest('.help-block').remove();
+		},
+		success: function(e)
+		{
+			e.closest('.form-group').removeClass('has-success has-error');
+			e.closest('.form-group').find('.help-block').remove();
+		},
+		rules: {
+			"addcar-make": {
+				required: true,
+				maxlength: 255
+			},
+			"addcar-model": {
+				required: true,
+				maxlength: 255
+			},
+			"addcar-color": {
+				required: true,
+				maxlength: 255
+			},
+			"addcar-year": {
+				required: true,
+				minlength: 4,
+				maxlength: 4,
+				digits: true
+			}
+		}
+	});
+
     Driftr.api("GET", "Login", null).done(function (curUser) {
 
         Driftr.api("GET", "Login", null).done(function (curUser) {
@@ -10,9 +50,8 @@
     });
 
 
-    $("form").on("submit", function (e) {
-        e.preventDefault();
-
+    window.submitForm = function()
+    {
         Driftr.api("GET", "Login", null).done(function (curUser) {
             var email = curUser.email;
 
@@ -32,8 +71,7 @@
                 window.location = "dashboard.html";
             });
         });
-
-    });
+    };
 });
 
 var populateVehicles = function (vehicles) {

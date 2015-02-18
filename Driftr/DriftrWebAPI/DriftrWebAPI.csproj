@@ -223,6 +223,8 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="site\additional-methods.min.js" />
+    <Content Include="site\background.png" />
     <Content Include="site\common.js" />
     <Content Include="site\dashboard.html" />
     <Content Include="site\dashboard.js" />
@@ -230,15 +232,16 @@
     <Content Include="site\events.js" />
     <Content Include="site\friends.html" />
     <Content Include="site\friends.js" />
-    <Content Include="site\logout.html" />
     <Content Include="site\index.html" />
     <Content Include="site\index.js" />
+    <Content Include="site\jquery.validate.min.js" />
+    <Content Include="site\logout.html" />
     <Content Include="site\logout.js" />
+    <Content Include="site\profile.html" />
     <Content Include="site\profile.js" />
     <Content Include="site\register.html" />
     <Content Include="site\register.js" />
     <Content Include="site\style.css" />
-    <Content Include="site\profile.html" />
     <Content Include="site\testConnections.html" />
     <Content Include="site\vehicles.html" />
     <Content Include="site\vehicles.js" />

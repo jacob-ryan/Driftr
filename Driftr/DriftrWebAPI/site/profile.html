@@ -12,6 +12,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="jquery.validate.min.js"></script>
     <script src="common.js"></script>
     <script src="profile.js"></script>
 </head>
@@ -39,13 +40,23 @@
         <h1>Profile</h1>
         <h3>Edit your information:</h3>
         <div class="col-md-4">
-            <form>
-                <input type="email" class="form-control" id="profile-email" readonly="readonly" />
-                <input type="text" class="form-control" id="profile-name" placeholder="Name" />
-                <input type="password" class="form-control" id="profile-password" placeholder="New password" />
-                <input type="password" class="form-control" id="profile-password-confirm" placeholder="Confirm password" />
-                <button type="submit" class="btn btn-block btn-primary">Update Profile</button>
-            </form>
+			<form action="javascript: submitForm();">
+				<div class="form-group">
+					<input type="email" class="form-control" id="profile-email" name="profile-email" readonly="readonly" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="profile-name" name="profile-name" placeholder="Name" />
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" id="profile-password" name="profile-password" placeholder="New password" />
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" id="profile-password-confirm" name="profile-password-confirm" placeholder="Confirm password" />
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-block btn-primary">Update Profile</button>
+				</div>
+			</form>
         </div>
     </div>
 </body>

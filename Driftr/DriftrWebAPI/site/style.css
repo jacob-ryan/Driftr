@@ -1,5 +1,7 @@
 ﻿body
 {
+	background: url("background.png");
+	background-size: cover;
 	padding-top: 50px;
 }
 

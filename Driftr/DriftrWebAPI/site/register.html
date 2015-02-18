@@ -12,6 +12,7 @@
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="jquery.validate.min.js"></script>
 	<script src="common.js"></script>
 	<script src="register.js"></script>
 </head>
@@ -34,11 +35,19 @@
 		<div class="row">
 			<h1>Register</h1>
 			<div class="col-md-4">
-				<form>
-					<input type="text" class="form-control" id="register-name" placeholder="Name" />
-					<input type="email" class="form-control" id="register-email" placeholder="Email" />
-					<input type="password" class="form-control" id="register-password" placeholder="Password" />
-					<button type="submit" class="btn btn-block btn-primary">Register</button>
+				<form action="javascript: submitForm();">
+					<div class="form-group">
+						<input type="text" class="form-control" id="register-name" name="register-name" placeholder="Name" />
+					</div>
+					<div class="form-group">
+						<input type="email" class="form-control" id="register-email" name="register-email" placeholder="Email" />
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" id="register-password" name="register-password" placeholder="Password" />
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-block btn-primary">Register</button>
+					</div>
 				</form>
 			</div>
 		</div>

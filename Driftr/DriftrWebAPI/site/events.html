@@ -12,6 +12,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="jquery.validate.min.js"></script>
     <script src="common.js"></script>
     <script src="events.js"></script>
 </head>
@@ -39,18 +40,27 @@
         <h1>Events</h1>
         <h3>Current Events:</h3>
         <ul id="eventlist">
-
         </ul>
 
         <h3>Add Event:</h3>
         <div class="col-md-4">
-            <form>
-                <input type="text" class="form-control" id="addevent-location" placeholder="Location" />
-                <input type="text" class="form-control" id="addevent-date" placeholder="Date" />
-                <input type="text" class="form-control" id="addevent-theme" placeholder="Theme" />
-                <input type="text" class="form-control" id="addevent-description" placeholder="Description" />
-                <button type="submit" class="btn btn-block btn-primary">Add Event</button>
-            </form>
+			<form action="javascript: submitForm();">
+				<div class="form-group">
+					<input type="text" class="form-control" id="addevent-theme" name="addevent-theme" placeholder="Theme" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="addevent-location" name="addevent-location" placeholder="Location" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="addevent-date" name="addevent-date" placeholder="Date" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="addevent-description" name="addevent-description" placeholder="Description" />
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-block btn-primary">Add Event</button>
+				</div>
+			</form>
         </div>
     </div>
 </body>

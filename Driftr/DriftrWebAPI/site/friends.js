@@ -1,8 +1,34 @@
-/// <reference path="friends.html" />
-/// <reference path="friends.html" />
-/// <reference path="friends.html" />
 $(document).ready(function ()
 {
+	$("form").validate({
+		errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+		errorElement: 'div',
+		errorPlacement: function(error, e)
+		{
+			e.parents('.form-group').append(error);
+		},
+		highlight: function(e)
+		{
+			$(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+			$(e).closest('.help-block').remove();
+		},
+		success: function(e)
+		{
+			e.closest('.form-group').removeClass('has-success has-error');
+			e.closest('.form-group').find('.help-block').remove();
+		},
+		rules: {
+			"addfriend-email": {
+				required: true,
+				email: true,
+				maxlength: 255
+			},
+			"addfriend-relation": {
+				required: true
+			}
+		}
+	});
+
     Driftr.api("GET", "Login", null).done(function (curUser) {
         var email = curUser.email;
         Driftr.api("GET", "Friend?email="+email, null).done(function (friends) {
@@ -10,28 +36,22 @@ $(document).ready(function ()
         });
     });
 
-    $("form").on("submit", function (e) {
-        e.preventDefault();
-
+    window.submitForm = function()
+    {
         Driftr.api("GET", "Login", null).done(function (curUser) {
             var email = curUser.email;
 
-            //console.log(email);
             var data = {
                 userEmailA: email,
                 userEmailB: $("#addfriend-email").val(),
                 relation: $("#addfriend-relation").val()
             };
 
-            //console.log(data);
-
-
             Driftr.api("POST", "Friend", data).done(function () {
                 window.location = "friends.html";
             });
         });
-
-    });
+    };
 });
 
 var populateFriends = function(friends) {

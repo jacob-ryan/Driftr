@@ -12,6 +12,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="jquery.validate.min.js"></script>
     <script src="common.js"></script>
     <script src="friends.js"></script>
 </head>
@@ -39,16 +40,21 @@
         <h1>Friends</h1>
         <h3>Current Friends:</h3>
         <div id="friendTable" class="table-responsive">
-            
         </div>
 
         <h3>Add Friend:</h3>
         <div class="col-md-4">
-            <form>
-                <input type="text" class="form-control" id="addfriend-email" placeholder="Friend email" />
-                <input type="text" class="form-control" id="addfriend-relation" placeholder="Relation" />
-                <button type="submit" class="btn btn-block btn-primary">Add Friend</button>
-            </form>
+			<form action="javascript: submitForm();">
+				<div class="form-group">
+					<input type="text" class="form-control" id="addfriend-email" name="addfriend-email" placeholder="Friend email" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="addfriend-relation" name="addfriend-relation" placeholder="Relation" />
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-block btn-primary">Add Friend</button>
+				</div>
+			</form>
         </div>
     </div>
 </body>

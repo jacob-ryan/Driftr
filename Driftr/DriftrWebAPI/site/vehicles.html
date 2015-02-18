@@ -12,6 +12,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="jquery.validate.min.js"></script>
     <script src="common.js"></script>
     <script src="vehicles.js"></script>
 </head>
@@ -39,19 +40,30 @@
         <h1>Cars</h1>
         <h3>Current Cars:</h3>
         <ul id="carlist">
-
         </ul>
 
         <h3>Add Car:</h3>
         <div class="col-md-4">
-            <form>
-                <input type="text" class="form-control" id="addcar-make" placeholder="Make" />
-                <input type="text" class="form-control" id="addcar-model" placeholder="Model" />
-                <input type="text" class="form-control" id="addcar-color" placeholder="Color" />
-                <input type="text" class="form-control" id="addcar-year" placeholder="Model Year" />
-                <input type="text" class="form-control" id="addcar-description" placeholder="Description" />
-                <button type="submit" class="btn btn-block btn-primary">Add Car</button>
-            </form>
+			<form action="javascript: submitForm();">
+				<div class="form-group">
+					<input type="text" class="form-control" id="addcar-make" name="addcar-make" placeholder="Make" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="addcar-model" name="addcar-model" placeholder="Model" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="addcar-color" name="addcar-color" placeholder="Color" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="addcar-year" name="addcar-year" placeholder="Model Year" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="addcar-description" name="addcar-description" placeholder="Description" />
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-block btn-primary">Add Car</button>
+				</div>
+			</form>
         </div>
     </div>
 </body>
