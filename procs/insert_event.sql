@@ -40,7 +40,7 @@ BEGIN
 	RETURN 2
 END
 
-IF (@description_5 IS NULL OR LEN(@description_5)<=0)
+IF (@description_5 IS NULL)
 BEGIN
 	PRINT 'Description not valid'
 	RETURN 2

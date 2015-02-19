@@ -155,6 +155,7 @@
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\FriendController.cs" />
     <Compile Include="Controllers\PreferenceController.cs" />
+    <Compile Include="Controllers\VehiclesAllowedController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Sprocs\SprocPreference.cs" />
     <Compile Include="Sprocs\SprocVehicle.cs" />
     <Compile Include="Sprocs\SprocUser.cs" />
+    <Compile Include="Sprocs\SprocVehiclesAllowed.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -229,6 +231,8 @@
     <Content Include="site\common.js" />
     <Content Include="site\dashboard.html" />
     <Content Include="site\dashboard.js" />
+    <Content Include="site\eventDetail.html" />
+    <Content Include="site\eventDetail.js" />
     <Content Include="site\locations.html" />
     <Content Include="site\locations.js" />
     <Content Include="site\events.html" />

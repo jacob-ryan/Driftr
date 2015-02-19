@@ -43,7 +43,7 @@ CREATE TABLE [Location]
 	address varchar(255) NOT NULL,
 	description varchar(max) NOT NULL,
 	latitude varchar(255) NOT NULL,
-	longitude varchar(255) NOT NULL
+	longitude varchar(255) NOT NULL,
 
 	PRIMARY KEY(id)
 );
@@ -77,13 +77,11 @@ CREATE TABLE [EventParticipant]
 
 CREATE TABLE [Preferences]
 (
-	id int IDENTITY(1,1),
-	userEmail varchar(255) NOT NULL,
-	rating int NOT NULL,
-	type varchar(255) NOT NULL,
-	[key] varchar(255) NOT NULL,
-	value varchar(255) NOT NULL,
-
-	PRIMARY KEY(id),
-	FOREIGN KEY(userEmail) REFERENCES [User](email)
+	eventId int NOT NULL,
+	field varchar(255) NOT NULL,
+	entries varchar(max) NOT NULL,
+	isWhitelist bit NOT NULL,
+	
+	PRIMARY KEY(eventId, field),
+	FOREIGN KEY(eventId) REFERENCES [Event](id)
 );

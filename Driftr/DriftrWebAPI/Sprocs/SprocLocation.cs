@@ -51,6 +51,7 @@ namespace DriftrWebAPI.Sprocs
 
 			command.ExecuteNonQuery();
 		}
+
         public static void update(SqlConnection connection, int id, string description)
         {
             SqlCommand command = new SqlCommand("EXEC [update_location_description] @Id, @Description;", connection);
