@@ -46,11 +46,10 @@ INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "descri
 
 IF(1=1)
 BEGIN
-INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
-	SELECT v.id, userEmail, active, make, model, "year", color, "description" FROM Vehicle v
-	INNER JOIN dbo.Split(@Makes, ',') AS split
-	ON v.make = split.[DATA]
-	WHERE v.userEmail = @email_1
+DELETE @Results
+FROM @Results r
+	INNER JOIN @MakeWhitelist mw
+	ON r.make != mw.make
 END
 
 IF(1=1)
