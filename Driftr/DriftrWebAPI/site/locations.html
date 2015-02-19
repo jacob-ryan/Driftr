@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Driftr - Events</title>
+	<title>Driftr - Locations</title>
 
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="jquery.validate.min.js"></script>
 	<script src="common.js"></script>
-	<script src="events.js"></script>
+	<script src="locations.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -24,8 +24,8 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="events.html">Events</a></li>
-						<li><a href="locations.html">Locations</a></li>
+						<li><a href="events.html">Events</a></li>
+						<li class="active"><a href="locations.html">Locations</a></li>
 						<li><a href="vehicles.html">Cars</a></li>
 						<li><a href="friends.html">Friends</a></li>
 						<li><a href="profile.html">Profile</a></li>
@@ -37,38 +37,34 @@
 	</nav>
 
 	<div class="container">
-		<h1>Events</h1>
-		<h3>Existing Events:</h3>
+		<h1>Locations</h1>
+		<h3>Existing Locations:</h3>
 		<table class="table">
 			<tr>
-				<th>Theme:</th>
-				<th>Creator:</th>
-				<th>Location:</th>
-				<th>Date:</th>
+				<th>Address:</th>
+				<th>City:</th>
+				<th>State:</th>
 				<th>Description:</th>
-				<th>Was Busted:</th>
 			</tr>
 		</table>
 
-		<h3>Add Event:</h3>
+		<h3>Add Location:</h3>
 		<div class="col-md-4">
 			<form action="javascript: submitForm();">
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-theme" name="event-theme" placeholder="Theme" />
+					<input type="text" class="form-control" id="location-address" name="location-address" placeholder="Address" />
 				</div>
 				<div class="form-group">
-					<select class="form-control" id="event-location" name="event-location">
-						<option value="">Location</option>
-					</select>
+					<input type="text" class="form-control" id="location-city" name="location-city" placeholder="City" />
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-date" name="event-date" placeholder="Date" />
+					<input type="text" class="form-control" id="location-state" name="location-state" placeholder="State" />
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-description" name="event-description" placeholder="Description" />
+					<input type="text" class="form-control" id="location-description" name="location-description" placeholder="Description" />
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-block btn-primary">Add Event</button>
+					<button type="submit" class="btn btn-block btn-primary">Add Location</button>
 				</div>
 			</form>
 		</div>

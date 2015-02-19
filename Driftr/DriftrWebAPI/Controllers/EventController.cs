@@ -37,6 +37,28 @@ namespace DriftrWebAPI.Controllers
 			return Request.CreateResponse(HttpStatusCode.OK, events);
 		}
 
+		// GET: api/Event?email=<email>
+		[Authorize]
+		public HttpResponseMessage Get(string email)
+		{
+			SqlDataReader reader = SprocEvent.getAllByUser(this.connection, email);
+			List<Event> events = new List<Event>();
+			while (reader.Read())
+			{
+				Event e = new Event();
+				e.id = (int) reader["id"];
+				e.userEmail = reader["userEmail"].ToString();
+				e.locationId = (int) reader["locationId"];
+				e.date = (DateTime) reader["eventDate"];
+				e.theme = reader["theme"].ToString();
+				e.description = reader["description"].ToString();
+				e.wasBusted = (bool) reader["wasBusted"];
+
+				events.Add(e);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, events);
+		}
+
 		// GET: api/Event/<id>
 		[Authorize]
 		public HttpResponseMessage Get(int id)

@@ -17,6 +17,14 @@ namespace DriftrWebAPI.Sprocs
 			return command.ExecuteReader();
 		}
 
+		public static SqlDataReader getAllByUser(SqlConnection connection, string email)
+		{
+			SqlCommand command = new SqlCommand("EXEC [select_events_by_user] @Email;", connection);
+			command.Parameters.Add(new SqlParameter("@Email", email));
+
+			return command.ExecuteReader();
+		}
+
 		public static SqlDataReader get(SqlConnection connection, int id)
 		{
 			SqlCommand command = new SqlCommand("EXEC [select_event] @Id;", connection);
