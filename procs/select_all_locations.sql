@@ -8,7 +8,7 @@ GO
 CREATE PROCEDURE [select_all_locations]
 AS
 
-SELECT * FROM [Locations]
+SELECT * FROM [Location]
 
 RETURN 0
 GO

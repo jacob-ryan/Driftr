@@ -118,7 +118,7 @@ var populateVehicles = function (vehicles) {
     headMake.innerHTML = "Make";
     headColor.innerHTML = "Color";
     headDescription.innerHTML = "Description";
-
+    
     headDelete.innerHTML = "";
     //append headding stuff together
     headTr.appendChild(headYear);
@@ -218,15 +218,4 @@ var editVehicle = function () {
             });
         });
     });  
-    /*
-    Driftr.api("GET", "Login", null).done(function (curUser) {
-        var email = curUser.email;
-        console.log("vehicleID: " + vehicleID);
-        /*
-        Driftr.api("EDIT", "Vehicle?id=" + vehicleID, null).done(function () {
-            window.location = "vehicles.html";
-        });
-        
-    });
-    */
 }
