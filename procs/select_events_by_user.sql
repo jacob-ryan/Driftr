@@ -15,8 +15,8 @@ BEGIN
 	RETURN 1
 END
 
-SELECT eventid, placement FROM [EventParticipant]
-WHERE userEmail = @email_1
+SELECT * FROM [Event] e, [EventParticipant] p
+WHERE e.userEmail = p.userEmail AND p.userEmail = @email_1
 
 RETURN 0
 GO

@@ -123,6 +123,16 @@
 				}
 				$("#edit-container").fadeIn();
 			});
+
+			Driftr.api("GET", "EventParticipant/" + id, null).done(function(participants)
+			{
+				for (var i = 0; i < participants.length; i += 1)
+				{
+					var participant = participants[i];
+					var html = "<li><input type='number'>&ensp;" + participant.userEmail + "</li>";
+					$("#event-edit-participants").append(html);
+				}
+			});
 		});
 	};
 

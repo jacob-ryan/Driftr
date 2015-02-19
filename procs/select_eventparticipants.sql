@@ -15,7 +15,7 @@ BEGIN
 	RETURN 1
 END
 
-SELECT userEmail AS [User], placement FROM [EventParticipant]
+SELECT * FROM [EventParticipant]
 WHERE eventid = @id_1
 
 RETURN 0
