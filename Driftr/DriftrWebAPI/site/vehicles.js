@@ -50,7 +50,7 @@
     });
 
 
-    window.submitFormAddCar = function()
+    window.submitForm = function()
     {
         Driftr.api("GET", "Login", null).done(function (curUser) {
             var email = curUser.email;
@@ -95,7 +95,7 @@ var populateVehicles = function (vehicles) {
     headMake.innerHTML = "Make";
     headColor.innerHTML = "Color";
     headDescription.innerHTML = "Description";
-
+    
     headDelete.innerHTML = "";
     //append headding stuff together
     headTr.appendChild(headYear);
@@ -126,10 +126,10 @@ var populateVehicles = function (vehicles) {
         var buttonDelete = document.createElement("button");
         buttonDelete.setAttribute("type", "button");
         buttonDelete.className = "btn btn-danger";
-        buttonDelete.innerHTML = "EDIT"
+        buttonDelete.innerHTML = "DELETE"
         buttonDelete.setAttribute("value", vehicles[i]['id']);
         //set onClick action for delete button
-        buttonDelete.onclick = editVehicle;
+        buttonDelete.onclick = deleteFriend;
         //******************************************
 
         //populate the columns
@@ -157,24 +157,15 @@ var populateVehicles = function (vehicles) {
     $("#carlist").append(table);
 };
 
-var editVehicle = function () {
-    console.log("yo");
-    var vehicleID = this.getAttribute("value");
+var deleteFriend = function () {
+    var id = this.getAttribute("value");
 
     Driftr.api("GET", "Login", null).done(function (curUser) {
         var email = curUser.email;
-        console.log("vehicleID: " + vehicleID);
-
-        document.getElementById('editcar-make').value = 'cats';
-        document.getElementById('editcar-model').value = 'cats';
-        document.getElementById('editcar-color').value = 'cats';
-        document.getElementById('editcar-year').value = '1990';
-        document.getElementById('editcar-description').value = 'cats';
-
-        /*
-        Driftr.api("EDIT", "Vehicle?id=" + vehicleID, null).done(function () {
-            window.location = "vehicles.html";
-        });
-        */
+ 
+		 Driftr.api("DELETE", "Vehicle?id="+id, null).done(function(){
+			 window.location = "vehicles.html";
+		 });
+		 
     });
-}
+};
