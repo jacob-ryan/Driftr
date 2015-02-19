@@ -154,6 +154,7 @@
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\FriendController.cs" />
+    <Compile Include="Controllers\PreferenceController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Sprocs\SprocEventParticipant.cs" />
     <Compile Include="Sprocs\SprocLocation.cs" />
     <Compile Include="Sprocs\SprocFriend.cs" />
+    <Compile Include="Sprocs\SprocPreference.cs" />
     <Compile Include="Sprocs\SprocVehicle.cs" />
     <Compile Include="Sprocs\SprocUser.cs" />
   </ItemGroup>

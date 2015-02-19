@@ -7,10 +7,10 @@ GO
 
 CREATE PROCEDURE [insert_preference]
 (@userEmail_1 varchar(255),
- @rating_2 int,
  @type_3 varchar(255),
  @key_4 varchar(255),
- @value_5 varchar(255))
+ @value_5 varchar(255),
+ @rating_2 int)
 AS
 
 -- Check if parameters are valid --
