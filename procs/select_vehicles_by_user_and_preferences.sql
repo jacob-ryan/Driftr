@@ -10,16 +10,35 @@ CREATE PROCEDURE [vehicles_allowed]
 @eventID_2 int
 AS
 
---name return column count
 DECLARE @MakeBlacklist VARCHAR(255)
-SET @MakeBlacklist = '';
-DECLARE @ModelBlacklist VARCHAR(255)
-SET @ModelBlacklist = '';
-DECLARE @ColorBlacklist VARCHAR(255)
-SET @ColorBlacklist = '';
+--SET @MakeBlacklist = 'Ford,Lancia'
+SELECT @makeBlackList = entries FROM Preferences
+WHERE eventId = @eventId_2 AND field = 'make' AND isWhiteList = 0
 
-DECLARE @Makes VARCHAR(255)
-SET @Makes = 'Honda,Ford,Toyota'
+DECLARE @ModelBlacklist VARCHAR(255)
+--SET @ModelBlacklist = 'S2000'
+SELECT @modelBlackList = entries FROM Preferences
+WHERE eventId = @eventId_2 AND field = 'model' AND isWhiteList = 0
+
+DECLARE @ColorBlacklist VARCHAR(255)
+--SET @ColorBlacklist = 'Silver'
+SELECT @ColorBlackList = entries FROM Preferences
+WHERE eventId = @eventId_2 AND field = 'color' AND isWhiteList = 0
+
+DECLARE @MakeWhitelist VARCHAR(255)
+--SET @MakeWhitelist = 'Honda,Ford'
+SELECT @makeWhiteList = entries FROM Preferences
+WHERE eventId = @eventId_2 AND field = 'make' AND isWhiteList = 1
+
+DECLARE @ModelWhitelist VARCHAR(255)
+--SET @ModelWhitelist = 'Fit,Civic'
+SELECT @modelWhiteList = entries FROM Preferences
+WHERE eventId = @eventId_2 AND field = 'model' AND isWhiteList = 1
+
+DECLARE @ColorWhitelist VARCHAR(255)
+--SET @ColorWhitelist = 'Blue,White'
+SELECT @ColorWhiteList = entries FROM Preferences
+WHERE eventId = @eventId_2 AND field = 'color' AND isWhiteList = 1
 
 DECLARE @Results TABLE 
 (
@@ -33,37 +52,85 @@ DECLARE @Results TABLE
   "description" varchar(max) NOT NULL
 )
 
---insert everything that isn't blacklisted from vehicles
 INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
-	SELECT v.id, userEmail, active, make, model, "year", color, "description" FROM Vehicle v
-		INNER JOIN dbo.Split(@MakeBlacklist, ',') AS splitMakes
-		ON v.make != splitMakes.[DATA]
-		INNER JOIN dbo.Split(@ModelBlacklist, ',') AS splitModels
-		ON v.model != splitModels.[DATA]
-		INNER JOIN dbo.Split(@ColorBlacklist, ',') AS splitColors
-		ON v.color != splitColors.[DATA]
-	WHERE v.userEmail = @email_1
+SELECT v.id, userEmail, active, make, model, "year", color, "description" FROM Vehicle v
+WHERE v.userEmail = @email_1
 
-IF(1=1)
-BEGIN
-DELETE @Results
+--
+-- APPLY BLACKLISTS
+--
+
+DELETE FROM @Results
 FROM @Results r
-	INNER JOIN @MakeWhitelist mw
-	ON r.make != mw.make
-END
+	INNER JOIN dbo.Split(@MakeBlacklist, ',') AS split
+	ON r.make = split.[DATA]
 
-IF(1=1)
-BEGIN
-SELECT * FROM Vehicle v
-INNER JOIN dbo.Split(@Makes, ',') AS split
-ON v.make = split.[DATA]
-WHERE v.userEmail = @email_1
-END
+DELETE FROM @Results
+FROM @Results r
+	INNER JOIN dbo.Split(@ModelBlacklist, ',') AS split
+	ON r.model = split.[DATA]
 
-IF(1=1)
-BEGIN
-SELECT * FROM Vehicle v
-INNER JOIN dbo.Split(@Makes, ',') AS split
-ON v.make = split.[DATA]
-WHERE v.userEmail = @email_1
-END
+DELETE FROM @Results
+FROM @Results r
+	INNER JOIN dbo.Split(@ColorBlacklist, ',') AS split
+	ON r.color = split.[DATA]
+
+
+--
+-- APPLY WHITELISTS
+--
+
+-- Create a temporary copy of the results table, then filter the temp with the whitelist and put back into results table
+
+DECLARE @Temp TABLE 
+(
+  id int NOT NULL, 
+  userEmail varchar(255) NOT NULL,
+  active bit NOT NULL,
+  make varchar(255) NOT NULL,
+  model varchar(255) NOT NULL,
+  "year" int NOT NULL,
+  color varchar(255) NOT NULL,
+  "description" varchar(max) NOT NULL
+)
+
+-- Make Whitelist
+
+INSERT INTO @Temp (id, userEmail, active, make, model, "year", color, "description")
+SELECT * FROM @Results
+
+DELETE FROM @Results
+
+INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
+SELECT r.id, userEmail, active, make, model, "year", color, "description"
+FROM @Temp r
+	INNER JOIN dbo.Split(@MakeWhitelist, ',') AS split
+	ON r.make = split.[DATA]
+
+-- Model Whitelist
+DELETE FROM @Temp
+INSERT INTO @Temp (id, userEmail, active, make, model, "year", color, "description")
+SELECT * FROM @Results
+
+DELETE FROM @Results
+
+INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
+SELECT r.id, userEmail, active, make, model, "year", color, "description"
+FROM @Temp r
+	INNER JOIN dbo.Split(@ModelWhitelist, ',') AS split
+	ON r.model = split.[DATA]
+
+-- Color Whitelist
+DELETE FROM @Temp
+INSERT INTO @Temp (id, userEmail, active, make, model, "year", color, "description")
+SELECT * FROM @Results
+
+DELETE FROM @Results
+
+INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
+SELECT r.id, userEmail, active, make, model, "year", color, "description"
+FROM @Temp r
+	INNER JOIN dbo.Split(@ColorWhitelist, ',') AS split
+	ON r.color = split.[DATA]
+
+SELECT count(id) as count FROM @Results
