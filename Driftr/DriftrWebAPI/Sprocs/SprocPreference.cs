@@ -10,30 +10,30 @@ namespace DriftrWebAPI.Sprocs
 {
 	public class SprocPreference
 	{
-		public static SqlDataReader get(SqlConnection connection, string email)
+		public static SqlDataReader get(SqlConnection connection, int eventId)
 		{
-			SqlCommand command = new SqlCommand("EXEC [select_preferences_by_user] @Email", connection);
-			command.Parameters.Add(new SqlParameter("@Email", email));
+			SqlCommand command = new SqlCommand("EXEC [select_preferences] @EventId;", connection);
+			command.Parameters.Add(new SqlParameter("@EventId", eventId));
 
 			return command.ExecuteReader();
 		}
 
-		public static void add(SqlConnection connection, string userEmail, string type, string key, string value, int rating)
+		public static void add(SqlConnection connection, int eventId, string field, string entries, bool isWhitelist)
 		{
-			SqlCommand command = new SqlCommand("EXEC [insert_preference] @Email, @Type, @Key, @Value, @Rating;", connection);
-			command.Parameters.Add(new SqlParameter("@Email", userEmail));
-			command.Parameters.Add(new SqlParameter("@Type", type));
-			command.Parameters.Add(new SqlParameter("@Key", key));
-			command.Parameters.Add(new SqlParameter("@Value", value));
-			command.Parameters.Add(new SqlParameter("@Rating", rating));
+			SqlCommand command = new SqlCommand("EXEC [insert_preference] @EventId, @Field, @Entries, @IsWhitelist;", connection);
+			command.Parameters.Add(new SqlParameter("@EventId", eventId));
+			command.Parameters.Add(new SqlParameter("@Field", field));
+			command.Parameters.Add(new SqlParameter("@Entries", entries));
+			command.Parameters.Add(new SqlParameter("@IsWhitelist", isWhitelist));
 
 			command.ExecuteNonQuery();
 		}
 
-		public static void delete(SqlConnection connection, int id)
+		public static void delete(SqlConnection connection, int eventId, string field)
 		{
-			SqlCommand command = new SqlCommand("EXEC [delete_preference] @Id", connection);
-			command.Parameters.Add(new SqlParameter("@Id", id));
+			SqlCommand command = new SqlCommand("EXEC [delete_preference] @EventId, @Field;", connection);
+			command.Parameters.Add(new SqlParameter("@EventId", eventId));
+			command.Parameters.Add(new SqlParameter("@Field", field));
 
 			command.ExecuteNonQuery();
 		}
