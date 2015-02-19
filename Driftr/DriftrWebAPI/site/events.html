@@ -47,28 +47,55 @@
 				<th>Date:</th>
 				<th>Description:</th>
 				<th>Was Busted:</th>
+				<th></th>
 			</tr>
 		</table>
 
-		<h3>Add Event:</h3>
 		<div class="col-md-4">
-			<form action="javascript: submitForm();">
+			<h3>Add Event:</h3>
+			<form id="event-add" action="javascript: submitAdd();">
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-theme" name="event-theme" placeholder="Theme" />
+					<input type="text" class="form-control" id="event-add-theme" name="event-add-theme" placeholder="Theme" />
 				</div>
 				<div class="form-group">
-					<select class="form-control" id="event-location" name="event-location">
+					<select class="form-control" id="event-add-location" name="event-add-location">
 						<option value="">Location</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-date" name="event-date" placeholder="Date" />
+					<input type="text" class="form-control" id="event-add-date" name="event-add-date" placeholder="Date" />
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-description" name="event-description" placeholder="Description" />
+					<input type="text" class="form-control" id="event-add-description" name="event-add-description" placeholder="Description" />
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-block btn-primary">Add Event</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-md-4 pull-right hide2" id="edit-container">
+			<h3>Edit Event:</h3>
+			<form id="event-edit" action="javascript: submitEdit();">
+				<div class="form-group">
+					<input type="text" class="form-control" id="event-edit-theme" name="event-edit-theme" placeholder="Theme" />
+				</div>
+				<div class="form-group">
+					<select class="form-control" id="event-edit-location" name="event-edit-location">
+						<option value="">Location</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="event-edit-date" name="event-edit-date" placeholder="Date" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="event-edit-description" name="event-edit-description" placeholder="Description" />
+				</div>
+				<div class="form-group">
+					<input type="checkbox" id="event-edit-wasBusted" name="event-edit-wasBusted" /> Was busted?
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-block btn-primary">Update Event</button>
 				</div>
 			</form>
 		</div>

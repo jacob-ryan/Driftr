@@ -48,9 +48,9 @@ namespace DriftrWebAPI.Sprocs
 
 		public static void update(SqlConnection connection, int id, string userEmail, int locationId, DateTime eventDate, string theme, string description, bool wasBusted)
 		{
-			SqlCommand command = new SqlCommand("EXEC [update_event] @Id, @UserEmail, @LocationId, @EventDate, @Theme, @Description, @WasBusted;", connection);
+			SqlCommand command = new SqlCommand("EXEC [update_event] @Id, @LocationId, @EventDate, @Theme, @Description, @WasBusted;", connection);
 			command.Parameters.Add(new SqlParameter("@Id", id));
-			command.Parameters.Add(new SqlParameter("@UserEmail", userEmail));
+			//command.Parameters.Add(new SqlParameter("@UserEmail", userEmail));
 			command.Parameters.Add(new SqlParameter("@LocationId", locationId));
 			command.Parameters.Add(new SqlParameter("@EventDate", eventDate));
 			command.Parameters.Add(new SqlParameter("@Theme", theme));

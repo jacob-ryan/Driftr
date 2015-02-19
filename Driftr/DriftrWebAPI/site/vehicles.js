@@ -1,6 +1,6 @@
 ﻿$(document).ready(function()
 {
-	$("form").validate({
+	$("#car-add").validate({
 		errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
 		errorElement: 'div',
 		errorPlacement: function(error, e)
@@ -18,19 +18,58 @@
 			e.closest('.form-group').find('.help-block').remove();
 		},
 		rules: {
-			"addcar-make": {
+			"car-add-make": {
 				required: true,
 				maxlength: 255
 			},
-			"addcar-model": {
+			"car-add-model": {
 				required: true,
 				maxlength: 255
 			},
-			"addcar-color": {
+			"car-add-color": {
 				required: true,
 				maxlength: 255
 			},
-			"addcar-year": {
+			"car-add-year": {
+				required: true,
+				minlength: 4,
+				maxlength: 4,
+				digits: true
+			}
+		}
+	});
+
+	$("#car-edit").validate({
+		errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+		errorElement: 'div',
+		errorPlacement: function(error, e)
+		{
+			e.parents('.form-group').append(error);
+		},
+		highlight: function(e)
+		{
+			$(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+			$(e).closest('.help-block').remove();
+		},
+		success: function(e)
+		{
+			e.closest('.form-group').removeClass('has-success has-error');
+			e.closest('.form-group').find('.help-block').remove();
+		},
+		rules: {
+			"car-edit-make": {
+				required: true,
+				maxlength: 255
+			},
+			"car-edit-model": {
+				required: true,
+				maxlength: 255
+			},
+			"car-edit-color": {
+				required: true,
+				maxlength: 255
+			},
+			"car-edit-year": {
 				required: true,
 				minlength: 4,
 				maxlength: 4,
