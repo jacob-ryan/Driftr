@@ -23,6 +23,9 @@ namespace DriftrWebAPI.Controllers
 				+ "Trusted_Connection=false;"
 				+ "database=" + database + ";"
 				+ "connection timeout=10";
+
+			connectionString = "server=(local)\\SQLEXPRESS;Trusted_Connection=true;database=Driftr;";
+
 			this.connection = new SqlConnection(connectionString);
 			this.connection.Open();
 		}

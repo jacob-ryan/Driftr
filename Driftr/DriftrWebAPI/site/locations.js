@@ -1,7 +1,3 @@
-
-
-
-
 var map = null;
 var geocoder = null;
 //the position of the user

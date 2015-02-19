@@ -28,6 +28,7 @@ namespace DriftrWebAPI.Sprocs
 		public static void add(SqlConnection connection, string address, string description, string latitude, string longitude)
 		{
 			SqlCommand command = new SqlCommand("EXEC [insert_location] @Address, @Description, @latitude, @longitude;", connection);
+
 			command.Parameters.Add(new SqlParameter("@Address", address));
 			command.Parameters.Add(new SqlParameter("@Description", description));
             command.Parameters.Add(new SqlParameter("@latitude", latitude));
@@ -39,7 +40,9 @@ namespace DriftrWebAPI.Sprocs
 
         public static void update(SqlConnection connection, int id, string address, string description, string latitude, string longitude)
 		{
+
 			SqlCommand command = new SqlCommand("EXEC [update_location] @Id, @Address, @Description, @latitude, @longitude;", connection);
+
 			command.Parameters.Add(new SqlParameter("@Id", id));
 			command.Parameters.Add(new SqlParameter("@Address", address));
 			command.Parameters.Add(new SqlParameter("@Description", description));

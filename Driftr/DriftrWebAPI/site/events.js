@@ -1,7 +1,7 @@
 ﻿$(document).ready(function()
 {
-	/*$("form").validate({
-		errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+	$("#event-add").validate({
+		errorClass: 'help-block animation-slideDown',
 		errorElement: 'div',
 		errorPlacement: function(error, e)
 		{
@@ -18,150 +18,161 @@
 			e.closest('.form-group').find('.help-block').remove();
 		},
 		rules: {
-			"addevent-theme": {
+			"event-add-theme": {
 				required: true,
 				minlength: 3,
 				maxlength: 255
 			},
-			"addevent-location": {
+			"event-add-location": {
 				required: true
 			},
-			"addevent-date": {
+			"event-add-date": {
 				required: true,
 				date: true
 			}
 		}
-	});*/
+	});
 
-    Driftr.api("GET", "Login", null).done(function (curUser) {
+	$("#event-edit").validate({
+		errorClass: 'help-block animation-slideDown',
+		errorElement: 'div',
+		errorPlacement: function(error, e)
+		{
+			e.parents('.form-group').append(error);
+		},
+		highlight: function(e)
+		{
+			$(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+			$(e).closest('.help-block').remove();
+		},
+		success: function(e)
+		{
+			e.closest('.form-group').removeClass('has-success has-error');
+			e.closest('.form-group').find('.help-block').remove();
+		},
+		rules: {
+			"event-edit-theme": {
+				required: true,
+				minlength: 3,
+				maxlength: 255
+			},
+			"event-edit-location": {
+				required: true
+			},
+			"event-edit-date": {
+				required: true,
+				date: true
+			}
+		}
+	});
 
-        Driftr.api("GET", "Event", null).done(function (events) {
-            //console.log(events);
-            populateEvents(events, curUser);
-        });
-    });
+	Driftr.api("GET", "Location", null).done(function(locations)
+	{
+		for (var i = 0; i < locations.length; i += 1)
+		{
+			var location = locations[i];
+			var html = "<option value='" + location.id + "'>" + location.address + " - " + location.city + ", " + location.state + "</option>";
+			$("#event-add-location").append(html);
+			$("#event-edit-location").append(html);
+		}
+	});
 
-    window.submitForm = function()
-    {
-        console.log($("#addevent-date").val());
+	Driftr.api("GET", "Login", null).done(function(user)
+	{
+		Driftr.api("GET", "Event", null).done(function(events)
+		{
+			for (var i = 0; i < events.length; i += 1)
+			{
+				var event = events[i];
+				var html = "<tr>";
+				html += "<td>" + event.theme + "</td>";
+				html += "<td>" + event.userEmail + "</td>";
+				html += "<td>" + event.location + "</td>";
+				html += "<td>" + new Date(event.date).toLocaleDateString() + "</td>";
+				html += "<td>" + event.description + "</td>";
+				html += "<td>" + (event.wasBusted ? "Yes" : "No") + "</td>";
+				if (event.userEmail == user.email)
+				{
+					html += "<td><button class='btn btn-sm btn-primary' onclick='editEvent(" + event.id + ");'>Edit</button></td>";
+				}
+				else
+				{
+					html += "<td></td>";
+				}
+				html += "</tr>";
+				$(".table").append(html);
+			}
+		});
+	});
 
-        Driftr.api("GET", "Login", null).done(function (curUser) {
-            console.log(curUser.email);
+	window.editEvent = function(id)
+	{
+		window.editId = id;
 
-            var data = {
-                userEmail: curUser.email,
-                locationId: parseInt($("#addevent-location").val()),
-                date: $("#addevent-date").val(),
-                theme: $("#addevent-theme").val(),
-                description: $("#addevent-description").val()
-            };
+		Driftr.api("GET", "Login", null).done(function(user)
+		{
+			Driftr.api("GET", "Event/" + id, null).done(function(event)
+			{
+				$("#event-edit-theme").val(event.theme);
+				$("#event-edit-location").val(event.locationId);
+				$("#event-edit-date").val(new Date(event.date).toLocaleDateString());
+				$("#event-edit-description").val(event.description);
+				if (event.wasBusted)
+				{
+					$("#event-edit-wasBusted").attr("checked", "checked");
+				}
+				$("#edit-container").fadeIn();
+			});
 
-            Driftr.api("POST", "Event", data).done(function () {
-                window.location = "events.html";
-            });
-        });
+			Driftr.api("GET", "EventParticipant/" + id, null).done(function(participants)
+			{
+				for (var i = 0; i < participants.length; i += 1)
+				{
+					var participant = participants[i];
+					var html = "<li><input type='number'>&ensp;" + participant.userEmail + "</li>";
+					$("#event-edit-participants").append(html);
+				}
+			});
+		});
+	};
 
-    };
+	window.submitAdd = function()
+	{
+		Driftr.api("GET", "Login", null).done(function(user)
+		{
+			var data = {
+				userEmail: user.email,
+				locationId: $("#event-add-location").val(),
+				date: $("#event-add-date").val(),
+				theme: $("#event-add-theme").val(),
+				description: $("#event-add-description").val(),
+				wasBusted: false
+			};
+
+			Driftr.api("POST", "Event", data).done(function()
+			{
+				location.reload(true);
+			});
+		});
+	};
+
+	window.submitEdit = function()
+	{
+		Driftr.api("GET", "Login", null).done(function(user)
+		{
+			var data = {
+				userEmail: user.email,
+				locationId: $("#event-edit-location").val(),
+				date: $("#event-edit-date").val(),
+				theme: $("#event-edit-theme").val(),
+				description: $("#event-edit-description").val(),
+				wasBusted: $("#event-edit-wasBusted").is(":checked")
+			};
+
+			Driftr.api("PUT", "Event/" + window.editId, data).done(function()
+			{
+				location.reload(true);
+			});
+		});
+	};
 });
-
-//gets the location from the event's location id and adds it 
-//  to the innerHTML of the location cell in the table.
-var getLocation = function (event, bodyLocation) {
-    Driftr.api("GET", "Location/" + event.locationId, null).done(function (location) {
-        bodyLocation.innerHTML = location.address;
-    });
-};
-
-//http://www.howtocreate.co.uk/referencedvariables.html
-function scopepreserver(id, email) {
-    return function () {
-        console.log(id);
-
-        var data = {
-            userEmail: email,
-            eventID: id,
-            placement: 0
-        };
-        Driftr.api("POST", "EventParticipant", data).done(function () {
-            window.location = "dashboard.html";
-        });
-    }
-}
-
-var populateEvents = function (events, curUser) {
-    //Create the base for the table
-    var table = document.createElement("table");
-    table.className = "table";
-
-    //build the headdings for the table
-    var thead = document.createElement("thead");
-    var headTr = document.createElement("tr");
-    var headTheme = document.createElement("th");
-    var headDate = document.createElement("th");
-    var headLocation = document.createElement("th");
-    var headDescription = document.createElement("th");
-    var headDelete = document.createElement("th");
-
-    //set text of each head
-    headTheme.innerHTML = "Theme";
-    headDate.innerHTML = "Date";
-    headLocation.innerHTML = "Location";
-    headDescription.innerHTML = "Description";
-
-    headDelete.innerHTML = "";
-    //append headding stuff together
-    headTr.appendChild(headTheme);
-    headTr.appendChild(headDate);
-    headTr.appendChild(headLocation);
-    headTr.appendChild(headDescription);
-    headTr.appendChild(headDelete);
-    thead.appendChild(headTr);
-    //append thead into table
-    table.appendChild(thead);
-
-    //create tbody to add rows to
-    var tbody = document.createElement("tbody");
-
-    for (var i = 0; i < events.length; i++) {
-        //build row and its columns
-        var bodyTr = document.createElement("tr");
-        var bodyTheme = document.createElement("td");
-        var bodyDate = document.createElement("td");
-        var bodyLocation = document.createElement("td");
-        var bodyDescription = document.createElement("td");
-        var bodyDelete = document.createElement("td");
-
-        //********SPECIAL FOR DELETE BUTTON*********
-        //create button
-        var buttonDelete = document.createElement("button");
-        buttonDelete.setAttribute("type", "button");
-        buttonDelete.className = "btn btn-sm btn-success";
-        buttonDelete.innerHTML = "JOIN"
-        buttonDelete.setAttribute("value", events[i]['id']);
-        //set onClick action for delete button
-        buttonDelete.onclick = scopepreserver(events[i].id, curUser.email);
-        //******************************************
-
-        //populate the columns
-        bodyTheme.innerHTML = events[i]['theme'];
-        bodyDate.innerHTML = new Date(events[i]['date']).toDateString();
-        var curEvent = events[i];
-        getLocation(curEvent, bodyLocation); //add location address
-        bodyDescription.innerHTML = events[i]['description'];
-        bodyDelete.appendChild(buttonDelete);
-
-        //append all columns into row
-        bodyTr.appendChild(bodyTheme);
-        bodyTr.appendChild(bodyDate);
-        bodyTr.appendChild(bodyLocation);
-        bodyTr.appendChild(bodyDescription);
-        bodyTr.appendChild(bodyDelete);
-
-        //append row into body of table
-        tbody.appendChild(bodyTr);
-    }
-    //append tbody into table
-    table.appendChild(tbody);
-    //append table into doc
-    $("#eventlist").append(table);
-};

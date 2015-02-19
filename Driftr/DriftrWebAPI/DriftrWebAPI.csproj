@@ -154,6 +154,7 @@
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\FriendController.cs" />
+    <Compile Include="Controllers\PreferenceController.cs" />
     <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Sprocs\SprocEventParticipant.cs" />
     <Compile Include="Sprocs\SprocLocation.cs" />
     <Compile Include="Sprocs\SprocFriend.cs" />
+    <Compile Include="Sprocs\SprocPreference.cs" />
     <Compile Include="Sprocs\SprocVehicle.cs" />
     <Compile Include="Sprocs\SprocUser.cs" />
   </ItemGroup>
@@ -223,11 +225,12 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="site\additional-methods.min.js" />
     <Content Include="site\background.png" />
     <Content Include="site\common.js" />
     <Content Include="site\dashboard.html" />
     <Content Include="site\dashboard.js" />
+    <Content Include="site\locations.html" />
+    <Content Include="site\locations.js" />
     <Content Include="site\events.html" />
     <Content Include="site\events.js" />
     <Content Include="site\friends.html" />
