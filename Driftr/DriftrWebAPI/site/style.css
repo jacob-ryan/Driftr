@@ -5,6 +5,11 @@
 	padding-top: 50px;
 }
 
+.hide2
+{
+	display: none;
+}
+
 .error
 {
 	background-color: #FFAAAA;
