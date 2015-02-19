@@ -6,15 +6,22 @@ DROP PROCEDURE [delete_preference]
 GO
 
 CREATE PROCEDURE [delete_preference]
-(@id_1 int)
+(@eventId_1 int,
+ @field_2 varchar(255))
 AS
 
 -- Delete if id is valid --
 
-IF (@id_1 IS NULL) OR ((SELECT count(*) FROM [Preferences] WHERE id = @id_1) <= 0)
+IF (@eventId_1 IS NULL) OR ((SELECT count(*) FROM [Preferences] WHERE eventId = @eventId_1) <= 0)
 BEGIN
-	PRINT 'ID ' + @id_1 + ' does not exist'
+	PRINT 'No preferences exist for eventId ' + @eventId_1 + '.'
 	RETURN 1
+END
+
+IF (@field_2 IS NULL) OR ((SELECT count(*) FROM [Preferences] WHERE eventId = @eventId_1 AND field = @field_2) <= 0)
+BEGIN
+	PRINT 'Preference for that eventId '+@eventId_1+' and field '+@field_2+' does not exist.'
+	RETURN 2
 END
 
 RETURN 0

@@ -6,50 +6,43 @@ DROP PROCEDURE [insert_preference]
 GO
 
 CREATE PROCEDURE [insert_preference]
-(@userEmail_1 varchar(255),
- @type_3 varchar(255),
- @key_4 varchar(255),
- @value_5 varchar(255),
- @rating_2 int)
+(@eventId_1 int,
+ @field_2 varchar(255),
+ @entries_3 varchar(max),
+ @isWhitelist_4 bit)
 AS
 
 -- Check if parameters are valid --
 
-IF (@userEmail_1 IS NULL) OR ((SELECT count(*) FROM [User] WHERE email = @UserEmail_1) <= 0)
+IF (@eventId_1 IS NULL) OR ((SELECT count(*) FROM [Preferences] WHERE eventId = @eventId_1) <= 0)
 BEGIN
-	PRINT 'Email ' + @UserEmail_1 + ' does not exist'
+	PRINT 'EventId ' + @eventid_1 + ' does not exist'
 	RETURN 1
 END
 
-IF (@rating_2 IS NULL)
+IF (@field_2 IS NULL)
 BEGIN
-	PRINT 'Rating not valid'
+	PRINT 'Field not valid'
 	RETURN 2
 END
 
-IF (@type_3 IS NULL)
+IF (@entries_3 IS NULL)
 BEGIN
-	PRINT 'Type not valid'
+	PRINT 'Entries not valid'
 	RETURN 3
 END
 
-IF (@key_4 IS NULL)
+IF (@isWhitelist_4 IS NULL)
 BEGIN
-	PRINT 'Key not valid'
+	PRINT 'isWhitelist not valid'
 	RETURN 4
-END
-
-IF (@value_5 IS NULL)
-BEGIN
-	PRINT 'Value not valid'
-	RETURN 5
 END
 
 -- Insert into Preferences Table --
 
 INSERT INTO [Preferences]
-([userEmail], [rating], [type], [key], [value])
-VALUES (@userEmail_1, @rating_2, @type_3, @key_4, @value_5)
+([eventId], [field], [entries], [isWhitelist])
+VALUES (@eventId_1, @field_2, @entries_3, @isWhitelist_4)
 
 RETURN 0
 GO
