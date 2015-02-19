@@ -15,21 +15,19 @@ namespace DriftrWebAPI.Controllers
 {
 	public class PreferenceController : BaseController
 	{
-		// GET: api/Preference?email=<email>
+		// GET: api/Preference/<id>
 		[Authorize]
-		public HttpResponseMessage Get(string email)
+		public HttpResponseMessage Get(int id)
 		{
-			SqlDataReader reader = SprocPreference.get(this.connection, email);
+			SqlDataReader reader = SprocPreference.get(this.connection, id);
 			List<Preference> preferences = new List<Preference>();
 			while (reader.Read())
 			{
 				Preference preference = new Preference();
-				preference.id = (int) reader["id"];
-				preference.userEmail = reader["userEmail"].ToString();
-				preference.type = reader["type"].ToString();
-				preference.key = reader["key"].ToString();
-				preference.value = reader["value"].ToString();
-				preference.rating = (int) reader["rating"];
+				preference.eventId = (int) reader["eventId"];
+				preference.field = reader["field"].ToString();
+				preference.entries = reader["entries"].ToString();
+				preference.isWhitelist = (bool) reader["isWhitelist"];
 
 				preferences.Add(preference);
 			}
@@ -39,14 +37,14 @@ namespace DriftrWebAPI.Controllers
 		// POST: api/Preference
 		public HttpResponseMessage Post(Preference preference)
 		{
-			//SprocVehicle.add(this.connection, preference.
+			SprocPreference.add(this.connection, preference.eventId, preference.field, preference.entries, preference.isWhitelist);
 			return Request.CreateResponse(HttpStatusCode.Created, true);
 		}
 
-		// PUT: api/Vehicle/<id>
-		public HttpResponseMessage Put(int id, Vehicle vehicle)
+		// DELETE: api/Preference
+		public HttpResponseMessage Put(Preference preference)
 		{
-			SprocVehicle.update(this.connection, id, vehicle.userEmail, vehicle.active, vehicle.make, vehicle.model, vehicle.year, vehicle.color, vehicle.description);
+			SprocPreference.delete(this.connection, preference.eventId, preference.field);
 			return Request.CreateResponse(HttpStatusCode.Created, true);
 		}
 	}

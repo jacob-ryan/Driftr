@@ -7,11 +7,9 @@ namespace DriftrWebAPI.Models
 {
 	public class Preference
 	{
-		public int id { get; set; }
-		public string userEmail { get; set; }
-		public int rating { get; set; }
-		public string type { get; set; }
-		public string key { get; set; }
-		public string value { get; set; }
+		public int eventId { get; set; }
+		public string field { get; set; }
+		public string entries { get; set; }
+		public bool isWhitelist { get; set; }
 	}
 }
