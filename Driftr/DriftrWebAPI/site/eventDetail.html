@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Driftr - Events</title>
+	<title>Driftr - Event Details</title>
 
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="jquery.validate.min.js"></script>
 	<script src="common.js"></script>
-	<script src="events.js"></script>
+	<script src="eventDetail.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -24,7 +24,7 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="events.html">Events</a></li>
+						<li><a href="events.html">Events</a></li>
 						<li><a href="locations.html">Locations</a></li>
 						<li><a href="vehicles.html">Cars</a></li>
 						<li><a href="friends.html">Friends</a></li>
@@ -37,9 +37,8 @@
 	</nav>
 
 	<div class="container">
-		<h1>Events</h1>
-		<h3>Existing Events:</h3>
-		<table class="table">
+		<h1>Event Details</h1>
+		<table class="table" id="event-table">
 			<tr>
 				<th>Theme:</th>
 				<th>Creator:</th>
@@ -51,51 +50,66 @@
 			</tr>
 		</table>
 
-		<div class="col-md-4">
-			<h3>Add Event:</h3>
+		<hr />
+
+		<h3>Preferences:</h3>
+		<table class="table" id="preferences-table">
+			<tr>
+				<th>Field:</th>
+				<th>Values:</th>
+				<th>Kind:</th>
+				<th></th>
+			</tr>
+		</table>
+
+		<div class="col-md-4 hide2">
+			<h3>Add Preference:</h3>
 			<form id="event-add" action="javascript: submitAdd();">
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-add-theme" name="event-add-theme" placeholder="Theme" />
-				</div>
-				<div class="form-group">
-					<select class="form-control" id="event-add-location" name="event-add-location">
-						<option value="">Location</option>
+					<select class="form-control" id="eventDetail-preference-field" name="eventDetail-preference-field">
+						<option value="make">Make</option>
+						<option value="model">Model</option>
+						<option value="color">Color</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-add-date" name="event-add-date" placeholder="Date" />
+					<input type="text" class="form-control" id="eventDetail-preference-values" name="eventDetail-preference-values" placeholder="Comma separated list of values" />
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-add-description" name="event-add-description" placeholder="Description" />
+					<select class="form-control" id="eventDetail-preference-kind" name="eventDetail-preference-kind">
+						<option value="blacklist">Black-list</option>
+						<option value="whitelist">White-list</option>
+					</select>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-block btn-primary">Add Event</button>
+					<button type="submit" class="btn btn-block btn-primary">Add Preference</button>
 				</div>
 			</form>
+			<br />
 		</div>
 
-		<div class="col-md-4 pull-right hide2" id="edit-container">
-			<h3>Edit Event:</h3>
+		<hr style="clear: both;" />
+
+		<h3>Participants:</h3>
+		<table class="table" id="participants-table">
+			<tr>
+				<th>Placement:</th>
+				<th>Email:</th>
+				<th></th>
+			</tr>
+		</table>
+
+		<div class="col-md-4 hide2" id="edit-container">
+			<h3>Edit Participant:</h3>
 			<form id="event-edit" action="javascript: submitEdit();">
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-edit-theme" name="event-edit-theme" placeholder="Theme" />
+					<input type="text" class="form-control" id="eventDetail-participant-placement" name="eventDetail-participant-placement" placeholder="Placement" />
 				</div>
 				<div class="form-group">
-					<select class="form-control" id="event-edit-location" name="event-edit-location">
-						<option value="">Location</option>
-					</select>
+					<input type="text" class="form-control" id="eventDetail-participant-email" name="eventDetail-participant-email" readonly="readonly" />
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="event-edit-date" name="event-edit-date" placeholder="Date" />
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" id="event-edit-description" name="event-edit-description" placeholder="Description" />
-				</div>
-				<div class="form-group">
-					<input type="checkbox" id="event-edit-wasBusted" name="event-edit-wasBusted" /> Was busted?
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-block btn-primary">Update Event</button>
+					<button type="submit" class="btn btn-block btn-primary">Update Participant</button>
 				</div>
 			</form>
 		</div>

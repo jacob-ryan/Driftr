@@ -9,12 +9,6 @@ CREATE PROCEDURE [select_preferences]
 @eventId_1 int
 AS
 
-IF (((SELECT count(*) FROM [Preferences] WHERE eventId = @eventId_1)) = 0 OR @eventId_1 IS NULL)
-BEGIN
-	PRINT 'No preferences exits for eventId '+@eventId_1+'.'
-	RETURN 1
-END
-
 SELECT * FROM [Preferences]
 WHERE eventId = @eventId_1
 

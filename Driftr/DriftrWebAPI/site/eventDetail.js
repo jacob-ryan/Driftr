@@ -1,5 +1,7 @@
 ﻿$(document).ready(function()
 {
+	var eventId = +(location.search.substring(location.search.indexOf("id=") + 3));
+
 	$("#event-add").validate({
 		errorClass: 'help-block animation-slideDown',
 		errorElement: 'div',
@@ -18,17 +20,8 @@
 			e.closest('.form-group').find('.help-block').remove();
 		},
 		rules: {
-			"event-add-theme": {
-				required: true,
-				minlength: 3,
-				maxlength: 255
-			},
-			"event-add-location": {
+			"eventDetail-preference-values": {
 				required: true
-			},
-			"event-add-date": {
-				required: true,
-				date: true
 			}
 		}
 	});
@@ -51,62 +44,82 @@
 			e.closest('.form-group').find('.help-block').remove();
 		},
 		rules: {
-			"event-edit-theme": {
+			"eventDetail-participant-placement": {
 				required: true,
-				minlength: 3,
-				maxlength: 255
-			},
-			"event-edit-location": {
-				required: true
-			},
-			"event-edit-date": {
-				required: true,
-				date: true
+				digits: true
 			}
-		}
-	});
-
-	Driftr.api("GET", "Location", null).done(function(locations)
-	{
-		for (var i = 0; i < locations.length; i += 1)
-		{
-			var location = locations[i];
-			var html = "<option value='" + location.id + "'>" + location.address + "</option>";
-			$("#event-add-location").append(html);
-			$("#event-edit-location").append(html);
 		}
 	});
 
 	Driftr.api("GET", "Login", null).done(function(user)
 	{
-		Driftr.api("GET", "Event", null).done(function(events)
+		Driftr.api("GET", "Event/" + eventId, null).done(function(event)
 		{
-			for (var i = 0; i < events.length; i += 1)
+			var html = "<tr>";
+			html += "<td>" + event.theme + "</td>";
+			html += "<td>" + event.userEmail + "</td>";
+			html += "<td>" + event.address + "</td>";
+			html += "<td>" + new Date(event.date).toLocaleDateString() + "</td>";
+			html += "<td>" + event.description + "</td>";
+			html += "<td>" + (event.wasBusted ? "Yes" : "No") + "</td>";
+			html += "</tr>";
+			$("#event-table").append(html);
+
+			Driftr.api("GET", "Preference/" + eventId, null).done(function(preferences)
 			{
-				var event = events[i];
-				var html = "<tr>";
-				html += "<td>" + event.theme + "</td>";
-				html += "<td>" + event.userEmail + "</td>";
-				html += "<td>" + event.address + "</td>";
-				html += "<td>" + new Date(event.date).toLocaleDateString() + "</td>";
-				html += "<td>" + event.description + "</td>";
-				html += "<td>" + (event.wasBusted ? "Yes" : "No") + "</td>";
-				html += "<td>";
-				html += "<button class='btn btn-sm btn-default' onclick='viewEvent(" + event.id + ");'>View</button>";
-				if (event.userEmail == user.email)
+				for (var i = 0; i < preferences.length; i += 1)
 				{
-					html += "&ensp;<button class='btn btn-sm btn-primary' onclick='editEvent(" + event.id + ");'>Edit</button>";
+					var preference = preferences[i];
+					var html = "<tr>";
+					html += "<td>" + preference.field + "</td>";
+					html += "<td>" + preference.entries + "</td>";
+					html += "<td>" + (preference.isWhitelist ? "White-list" : "Black-list") + "</td>";
+					if (user.email == event.userEmail)
+					{
+						html += "<td><button class='btn btn-sm btn-danger' onclick='deletePreference(\"" + preference.field + "\");'>Remove</button></td>";
+					}
+					else
+					{
+						html += "<td></td>";
+					}
+					html += "</tr>";
+					$("#preferences-table").append(html);
 				}
-				html += "</td>";
-				html += "</tr>";
-				$(".table").append(html);
-			}
+			});
+
+			Driftr.api("GET", "EventParticipant/" + eventId, null).done(function(participants)
+			{
+				for (var i = 0; i < participants.length; i += 1)
+				{
+					var participant = participants[i];
+					var html = "<tr>";
+					html += "<td>" + participant.placement + "</td>";
+					html += "<td>" + participant.userEmail + "</td>";
+					if (user.email == event.userEmail)
+					{
+						html += "<td><button class='btn btn-sm btn-danger' onclick='deleteParticipant(\"\");'>Remove</button></td>";
+					}
+					else
+					{
+						html += "<td></td>";
+					}
+					html += "</tr>";
+					$("#participants-table").append(html);
+				}
+			});
 		});
 	});
 
-	window.viewEvent = function(id)
+	window.deletePreference = function(field)
 	{
-		window.location = "eventDetail.html?id=" + id;
+		var data = {
+			eventId: eventId,
+			field: field
+		};
+		Driftr.api("DELETE", "Preference", data).done(function()
+		{
+			location.reload(true);
+		});
 	};
 
 	window.editEvent = function(id)
@@ -126,6 +139,16 @@
 					$("#event-edit-wasBusted").attr("checked", "checked");
 				}
 				$("#edit-container").fadeIn();
+			});
+
+			Driftr.api("GET", "EventParticipant/" + id, null).done(function(participants)
+			{
+				for (var i = 0; i < participants.length; i += 1)
+				{
+					var participant = participants[i];
+					var html = "<li><input type='number'>&ensp;" + participant.userEmail + "</li>";
+					$("#event-edit-participants").append(html);
+				}
 			});
 		});
 	};
