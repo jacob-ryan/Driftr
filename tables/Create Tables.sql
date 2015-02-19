@@ -41,12 +41,13 @@ CREATE TABLE [Location]
 (
 	id int IDENTITY(1,1),
 	address varchar(255) NOT NULL,
-	city varchar(255) NOT NULL,
-	state char(2) NOT NULL,
 	description varchar(max) NOT NULL,
+	latitude varchar(255) NOT NULL,
+	longitude varchar(255) NOT NULL
 
 	PRIMARY KEY(id)
 );
+
 
 CREATE TABLE [Event]
 (

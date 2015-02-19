@@ -23,14 +23,14 @@ namespace DriftrWebAPI.Controllers
 			List<Location> locations = new List<Location>();
 			while (reader.Read())
 			{
-				Location location = new Location();
-				location.id = (int) reader["id"];
-				location.address = reader["address"].ToString();
-				location.city = reader["city"].ToString();
-				location.state = reader["state"].ToString();
-				location.description = reader["description"].ToString();
+				Location loc = new Location();
+				loc.id = (int) reader["id"];
+				loc.address = reader["address"].ToString();
+				loc.description = reader["description"].ToString();
+                loc.latitude = reader["latitude"].ToString();
+                loc.longitude = reader["longitude"].ToString();
 
-				locations.Add(location);
+				locations.Add(loc);
 			}
 			return Request.CreateResponse(HttpStatusCode.OK, locations);
 		}
@@ -45,9 +45,9 @@ namespace DriftrWebAPI.Controllers
 			Location location = new Location();
 			location.id = (int) reader["id"];
 			location.address = reader["address"].ToString();
-			location.city = reader["city"].ToString();
-			location.state = reader["state"].ToString();
 			location.description = reader["description"].ToString();
+            location.latitude = reader["latitude"].ToString();
+            location.longitude = reader["longitude"].ToString();
 
 			return Request.CreateResponse(HttpStatusCode.OK, location);
 		}
@@ -55,15 +55,29 @@ namespace DriftrWebAPI.Controllers
 		// POST: api/Location
 		public HttpResponseMessage Post(Location location)
 		{
-			SprocLocation.add(this.connection, location.address, location.city, location.state, location.description);
+			SprocLocation.add(this.connection, location.address, location.description, location.latitude, location.longitude);
 			return Request.CreateResponse(HttpStatusCode.Created, true);
 		}
 
 		// PUT: api/Location/<id>
 		public HttpResponseMessage Put(int id, Location location)
 		{
-			SprocLocation.update(this.connection, id, location.address, location.city, location.state, location.description);
+			SprocLocation.update(this.connection, id, location.address, location.description, location.latitude, location.longitude);
 			return Request.CreateResponse(HttpStatusCode.Created, true);
 		}
+
+        //PUT: api/Location?id=<id>&description=<description>
+        public HttpResponseMessage Put(int id, string description)
+        {
+            SprocLocation.update(this.connection, id, description);
+            return Request.CreateResponse(HttpStatusCode.Created, true);
+        }
+
+        // DELETE: api/Location?id=<id>
+        public HttpResponseMessage Delete(int id)
+        {
+            int rows = SprocLocation.delete(this.connection, id);
+            return Request.CreateResponse(HttpStatusCode.Created, rows);
+        }
 	}
 }

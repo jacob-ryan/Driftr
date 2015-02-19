@@ -1,0 +1,15 @@
+#googleMap {
+	width:100%;
+	height:30em;
+}
+#mapPanel{
+	height:35em;
+}
+#tablePanel {
+	max-height: 24em;
+	overflow-y: scroll;
+}
+#addLocPanel {
+	height:7em;
+	vertical-align: bottom;
+}

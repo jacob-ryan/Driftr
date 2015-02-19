@@ -25,27 +25,44 @@ namespace DriftrWebAPI.Sprocs
 			return command.ExecuteReader();
 		}
 
-		public static void add(SqlConnection connection, string address, string city, string state, string description)
+		public static void add(SqlConnection connection, string address, string description, string latitude, string longitude)
 		{
-			SqlCommand command = new SqlCommand("EXEC [insert_vehicle] @Address, @City, @State, @Description;", connection);
+			SqlCommand command = new SqlCommand("EXEC [insert_location] @Address, @Description, @latitude, @longitude;", connection);
 			command.Parameters.Add(new SqlParameter("@Address", address));
-			command.Parameters.Add(new SqlParameter("@City", city));
-			command.Parameters.Add(new SqlParameter("@State", state));
 			command.Parameters.Add(new SqlParameter("@Description", description));
+            command.Parameters.Add(new SqlParameter("@latitude", latitude));
+            command.Parameters.Add(new SqlParameter("@longitude", longitude));
+
 
 			command.ExecuteNonQuery();
 		}
 
-		public static void update(SqlConnection connection, int id, string address, string city, string state, string description)
+        public static void update(SqlConnection connection, int id, string address, string description, string latitude, string longitude)
 		{
-			SqlCommand command = new SqlCommand("EXEC [update_vehicle] @Id, @Address, @City, @State, @Description;", connection);
+			SqlCommand command = new SqlCommand("EXEC [update_location] @Id, @Address, @Description, @latitude, @longitude;", connection);
 			command.Parameters.Add(new SqlParameter("@Id", id));
 			command.Parameters.Add(new SqlParameter("@Address", address));
-			command.Parameters.Add(new SqlParameter("@City", city));
-			command.Parameters.Add(new SqlParameter("@State", state));
 			command.Parameters.Add(new SqlParameter("@Description", description));
+            command.Parameters.Add(new SqlParameter("@latitude", latitude));
+            command.Parameters.Add(new SqlParameter("@longitude", longitude));
 
 			command.ExecuteNonQuery();
 		}
+        public static void update(SqlConnection connection, int id, string description)
+        {
+            SqlCommand command = new SqlCommand("EXEC [update_location_description] @Id, @Description;", connection);
+            command.Parameters.Add(new SqlParameter("@Id", id));
+            command.Parameters.Add(new SqlParameter("@Description", description));
+
+            command.ExecuteNonQuery();
+        }
+
+        public static int delete(SqlConnection connection, int id)
+        {
+            SqlCommand command = new SqlCommand("EXEC [delete_location] @id", connection);
+            command.Parameters.Add(new SqlParameter("@id", id));
+
+            return command.ExecuteNonQuery();
+        }
 	}
 }

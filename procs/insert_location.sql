@@ -7,39 +7,40 @@ GO
 
 CREATE PROCEDURE [insert_location]
 	@address_1 varchar(255) = NULL,
-	@city_2 varchar(255) = NULL,
-	@state_3 char(2) = NULL,
-	@description_4 varchar(max) = NULL
+	@description_2 varchar(MAX) = NULL,
+	@latitude_3 varchar(255) = NULL,
+	@longitude_4 varchar(255) = NULL
 AS
 
 -- Check if parameters are valid --
+
 IF (@address_1 IS NULL OR LEN(@address_1)<=0 OR LEN(@address_1)>255)
 BEGIN
 	PRINT 'Address is not valid'
 	RETURN 1
 END
 
-IF (@city_2 IS NULL OR LEN(@city_2)<=0 OR LEN(@city_2)>255)
+IF (@description_2 IS NULL OR LEN(@description_2)<=0)
 BEGIN
-	PRINT 'City is not valid'
-	RETURN 1
+	PRINT 'Description not valid'
+	RETURN 2
 END
 
-IF (@state_3 IS NULL OR LEN(@state_3)<=0 OR LEN(@state_3)>2)
+IF (@latitude_3 IS NULL OR LEN(@latitude_3)<=0 OR LEN(@latitude_3)>255)
 BEGIN
-	PRINT 'State not valid'
+	PRINT 'latitude is not valid'
 	RETURN 3
 END
 
-IF (@description_4 IS NULL OR LEN(@description_4)<=0 OR LEN(@description_4)>255)
+IF (@longitude_4 IS NULL OR LEN(@longitude_4)<=0 OR LEN(@longitude_4)>255)
 BEGIN
-	PRINT 'State not valid'
-	RETURN 3
+	PRINT 'longitude is not valid'
+	RETURN 4
 END
 
 -- Insert into Location Table --
 INSERT INTO [Location]
-([address], [city], [state], [description])
-VALUES (@address_1, @city_2, @state_3, @description_4)
+([address], [description], [latitude], [longitude])
+VALUES (@address_1, @description_2, @latitude_3, @longitude_4)
 
 RETURN 0

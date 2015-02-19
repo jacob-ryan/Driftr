@@ -9,8 +9,8 @@ namespace DriftrWebAPI.Models
 	{
 		public int id { get; set; }
 		public string address { get; set; }
-		public string city { get; set; }
-		public string state { get; set; }
 		public string description { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
 	}
 }
