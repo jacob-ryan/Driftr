@@ -1,6 +1,8 @@
 ﻿$(document).ready(function()
 {
-	$("form").validate({
+    document.getElementById('editcar').style.display = "none";
+
+	$("#addCarForm").validate({
 		errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
 		errorElement: 'div',
 		errorPlacement: function(error, e)
@@ -55,8 +57,6 @@
         Driftr.api("GET", "Login", null).done(function (curUser) {
             var email = curUser.email;
 
-            console.log(email);
-
             var data = {
                 userEmail: email,
                 active: 1,
@@ -68,10 +68,33 @@
             };
 
             Driftr.api("POST", "Vehicle", data).done(function () {
-                window.location = "dashboard.html";
+                window.location = "vehicles.html";
             });
         });
     };
+
+    $('#editCarForm').submit(function () {
+        var vehicleID = $('#editcar-id').val();
+        Driftr.api("GET", "Login", null).done(function (curUser) {
+            var email = curUser.email;
+            var data = {
+                userEmail: email,
+
+                active: document.getElementById("editcar-active").checked,
+                make: $("#editcar-make").val(),
+                model: $("#editcar-model").val(),
+                color: $("#editcar-color").val(),
+                year: parseInt($("#editcar-year").val()),
+                description: $("#editcar-description").val()
+            };
+
+            Driftr.api("PUT", "Vehicle?id=" + vehicleID, data).done(function () {
+                window.location = "vehicles.html";
+            });
+        });
+        return false;
+    });
+
 });
 
 var populateVehicles = function (vehicles) {
@@ -121,13 +144,21 @@ var populateVehicles = function (vehicles) {
         var bodyDescription = document.createElement("td");
         var bodyDelete = document.createElement("td");
 
-        //********SPECIAL FOR DELETE BUTTON*********
+        //********SPECIAL FOR EDIT BUTTON*********
         //create button
         var buttonDelete = document.createElement("button");
         buttonDelete.setAttribute("type", "button");
-        buttonDelete.className = "btn btn-danger";
-        buttonDelete.innerHTML = "EDIT"
+        buttonDelete.className = "btn btn-default";
+        buttonDelete.innerHTML = "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span> Edit"
         buttonDelete.setAttribute("value", vehicles[i]['id']);
+        //set vehicle data as attributes of edit button
+        buttonDelete.setAttribute("year", vehicles[i]['year']);
+        buttonDelete.setAttribute("model", vehicles[i]['model']);
+        buttonDelete.setAttribute("make", vehicles[i]['make']);
+        buttonDelete.setAttribute("color", vehicles[i]['color']);
+        buttonDelete.setAttribute("description", vehicles[i]['description']);
+        buttonDelete.setAttribute("active", vehicles[i]['active']);
+
         //set onClick action for delete button
         buttonDelete.onclick = editVehicle;
         //******************************************
@@ -158,23 +189,44 @@ var populateVehicles = function (vehicles) {
 };
 
 var editVehicle = function () {
-    console.log("yo");
     var vehicleID = this.getAttribute("value");
+    var make = this.getAttribute("make");
+    var model = this.getAttribute("model");
+    var color = this.getAttribute("color");
+    var year = this.getAttribute("year");
+    var description = this.getAttribute("description");
+    var active = this.getAttribute("active");
 
+    //set values in edit box to the vehicle data
+    Driftr.api("GET", "Login", null).done(function (curUser) {
+        Driftr.api("GET", "Login", null).done(function (curUser) {
+            var email = curUser.email;
+            Driftr.api("GET", "Vehicle?email=" + email, null).done(function (vehicles) {
+                for(var i=0; i<vehicles.length; i++) {
+                    if (vehicles[i].id == vehicleID) {
+                        document.getElementById('editcar').style.display = "initial";
+                        document.getElementById('editcar-id').value = vehicleID;
+                        document.getElementById('editcar-id').style.display = "none";
+                        document.getElementById('editcar-make').value = make;
+                        document.getElementById('editcar-model').value = model;
+                        document.getElementById('editcar-color').value = color;
+                        document.getElementById('editcar-year').value = year;
+                        document.getElementById('editcar-description').value = description;
+                        document.getElementById('editcar-active').checked = active;
+                    }
+                }
+            });
+        });
+    });  
+    /*
     Driftr.api("GET", "Login", null).done(function (curUser) {
         var email = curUser.email;
         console.log("vehicleID: " + vehicleID);
-
-        document.getElementById('editcar-make').value = 'cats';
-        document.getElementById('editcar-model').value = 'cats';
-        document.getElementById('editcar-color').value = 'cats';
-        document.getElementById('editcar-year').value = '1990';
-        document.getElementById('editcar-description').value = 'cats';
-
         /*
         Driftr.api("EDIT", "Vehicle?id=" + vehicleID, null).done(function () {
             window.location = "vehicles.html";
         });
-        */
+        
     });
+    */
 }
