@@ -43,7 +43,7 @@ CREATE TABLE [Location]
 	address varchar(255) NOT NULL,
 	description varchar(max) NOT NULL,
 	latitude varchar(255) NOT NULL,
-	longitude varchar(255) NOT NULL
+	longitude varchar(255) NOT NULL,
 
 	PRIMARY KEY(id)
 );
