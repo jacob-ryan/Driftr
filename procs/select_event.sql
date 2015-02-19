@@ -15,8 +15,8 @@ BEGIN
 	RETURN 1
 END
 
-SELECT * FROM [Event]
-WHERE id = @id_1
+SELECT e.id, e.userEmail, e.locationId, e.eventDate, e.theme, e.description, e.wasBusted, l.address FROM [Event] e, [Location] l
+WHERE e.locationId = l.id AND e.id = @id_1
 
 RETURN 0
 GO

@@ -32,6 +32,8 @@ namespace DriftrWebAPI.Controllers
 				e.description = reader["description"].ToString();
 				e.wasBusted = (bool) reader["wasBusted"];
 
+				e.address = reader["address"].ToString();
+
 				events.Add(e);
 			}
 			return Request.CreateResponse(HttpStatusCode.OK, events);
@@ -54,6 +56,8 @@ namespace DriftrWebAPI.Controllers
 				e.description = reader["description"].ToString();
 				e.wasBusted = (bool) reader["wasBusted"];
 
+				e.address = reader["address"].ToString();
+
 				events.Add(e);
 			}
 			return Request.CreateResponse(HttpStatusCode.OK, events);
@@ -74,6 +78,8 @@ namespace DriftrWebAPI.Controllers
 			e.theme = reader["theme"].ToString();
 			e.description = reader["description"].ToString();
 			e.wasBusted = (bool) reader["wasBusted"];
+
+			e.address = reader["address"].ToString();
 
 			return Request.CreateResponse(HttpStatusCode.OK, e);
 		}

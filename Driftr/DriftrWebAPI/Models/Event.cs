@@ -14,5 +14,7 @@ namespace DriftrWebAPI.Models
 		public string theme { get; set; }
 		public string description { get; set; }
 		public bool wasBusted { get; set; }
+
+		public string address { get; set; }
 	}
 }

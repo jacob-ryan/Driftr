@@ -71,7 +71,7 @@
 		for (var i = 0; i < locations.length; i += 1)
 		{
 			var location = locations[i];
-			var html = "<option value='" + location.id + "'>" + location.address + " - " + location.city + ", " + location.state + "</option>";
+			var html = "<option value='" + location.id + "'>" + location.address + "</option>";
 			$("#event-add-location").append(html);
 			$("#event-edit-location").append(html);
 		}
@@ -87,23 +87,27 @@
 				var html = "<tr>";
 				html += "<td>" + event.theme + "</td>";
 				html += "<td>" + event.userEmail + "</td>";
-				html += "<td>" + event.location + "</td>";
+				html += "<td>" + event.address + "</td>";
 				html += "<td>" + new Date(event.date).toLocaleDateString() + "</td>";
 				html += "<td>" + event.description + "</td>";
 				html += "<td>" + (event.wasBusted ? "Yes" : "No") + "</td>";
+				html += "<td>";
+				html += "<button class='btn btn-sm btn-default' onclick='viewEvent(" + event.id + ");'>View</button>";
 				if (event.userEmail == user.email)
 				{
-					html += "<td><button class='btn btn-sm btn-primary' onclick='editEvent(" + event.id + ");'>Edit</button></td>";
+					html += "&ensp;<button class='btn btn-sm btn-primary' onclick='editEvent(" + event.id + ");'>Edit</button>";
 				}
-				else
-				{
-					html += "<td></td>";
-				}
+				html += "</td>";
 				html += "</tr>";
 				$(".table").append(html);
 			}
 		});
 	});
+
+	window.viewEvent = function(id)
+	{
+		window.location = "eventDetail.html?id=" + id;
+	};
 
 	window.editEvent = function(id)
 	{

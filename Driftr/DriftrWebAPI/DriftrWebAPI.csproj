@@ -231,6 +231,8 @@
     <Content Include="site\common.js" />
     <Content Include="site\dashboard.html" />
     <Content Include="site\dashboard.js" />
+    <Content Include="site\eventDetail.html" />
+    <Content Include="site\eventDetail.js" />
     <Content Include="site\locations.html" />
     <Content Include="site\locations.js" />
     <Content Include="site\events.html" />
