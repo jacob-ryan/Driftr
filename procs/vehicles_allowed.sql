@@ -75,7 +75,6 @@ FROM @Results r
 	INNER JOIN dbo.Split(@ColorBlacklist, ',') AS split
 	ON r.color = split.[DATA]
 
-
 --
 -- APPLY WHITELISTS
 --
@@ -95,42 +94,53 @@ DECLARE @Temp TABLE
 )
 
 -- Make Whitelist
+IF(NOT(@MakeWhitelist IS NULL))
+BEGIN
+    
 
-INSERT INTO @Temp (id, userEmail, active, make, model, "year", color, "description")
-SELECT * FROM @Results
+    INSERT INTO @Temp (id, userEmail, active, make, model, "year", color, "description")
+    SELECT * FROM @Results
 
-DELETE FROM @Results
+    DELETE FROM @Results
 
-INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
-SELECT r.id, userEmail, active, make, model, "year", color, "description"
-FROM @Temp r
-	INNER JOIN dbo.Split(@MakeWhitelist, ',') AS split
-	ON r.make = split.[DATA]
+    INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
+    SELECT r.id, userEmail, active, make, model, "year", color, "description"
+    FROM @Temp r
+    	INNER JOIN dbo.Split(@MakeWhitelist, ',') AS split
+    	ON r.make = split.[DATA]
+END
+
 
 -- Model Whitelist
-DELETE FROM @Temp
-INSERT INTO @Temp (id, userEmail, active, make, model, "year", color, "description")
-SELECT * FROM @Results
+IF(NOT(@ModelWhitelist IS NULL))
+BEGIN
+    DELETE FROM @Temp
+    INSERT INTO @Temp (id, userEmail, active, make, model, "year", color, "description")
+    SELECT * FROM @Results
 
-DELETE FROM @Results
+    DELETE FROM @Results
 
-INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
-SELECT r.id, userEmail, active, make, model, "year", color, "description"
-FROM @Temp r
-	INNER JOIN dbo.Split(@ModelWhitelist, ',') AS split
-	ON r.model = split.[DATA]
+    INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
+    SELECT r.id, userEmail, active, make, model, "year", color, "description"
+    FROM @Temp r
+    	INNER JOIN dbo.Split(@ModelWhitelist, ',') AS split
+    	ON r.model = split.[DATA]
+END
 
 -- Color Whitelist
-DELETE FROM @Temp
-INSERT INTO @Temp (id, userEmail, active, make, model, "year", color, "description")
-SELECT * FROM @Results
+IF(NOT(@ColorWhitelist IS NULL))
+BEGIN
+  DELETE FROM @Temp
+  INSERT INTO @Temp (id, userEmail, active, make, model, "year", color, "description")
+  SELECT * FROM @Results
 
-DELETE FROM @Results
+  DELETE FROM @Results
 
-INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
-SELECT r.id, userEmail, active, make, model, "year", color, "description"
-FROM @Temp r
-	INNER JOIN dbo.Split(@ColorWhitelist, ',') AS split
-	ON r.color = split.[DATA]
+  INSERT INTO @Results (id, userEmail, active, make, model, "year", color, "description")
+  SELECT r.id, userEmail, active, make, model, "year", color, "description"
+  FROM @Temp r
+  	INNER JOIN dbo.Split(@ColorWhitelist, ',') AS split
+  	ON r.color = split.[DATA]
+END
 
 SELECT count(id) as count FROM @Results
