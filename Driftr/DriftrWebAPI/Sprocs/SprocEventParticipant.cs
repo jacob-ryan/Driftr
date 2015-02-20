@@ -28,6 +28,16 @@ namespace DriftrWebAPI.Sprocs
 			command.ExecuteNonQuery();
 		}
 
+		public static void update(SqlConnection connection, string userEmail, int eventId, int? placement)
+		{
+			SqlCommand command = new SqlCommand("EXEC [update_eventParticipant] @UserEmail, @EventId, @Placement;", connection);
+			command.Parameters.Add(new SqlParameter("@UserEmail", userEmail));
+			command.Parameters.Add(new SqlParameter("@EventId", eventId));
+			command.Parameters.Add(new SqlParameter("@Placement", placement));
+
+			command.ExecuteNonQuery();
+		}
+
 		public static void delete(SqlConnection connection, string userEmail, int eventId)
 		{
 			SqlCommand command = new SqlCommand("EXEC [delete_eventParticipant] @UserEmail, @EventId;", connection);

@@ -42,7 +42,7 @@ namespace DriftrWebAPI.Controllers
 		}
 
 		// DELETE: api/Preference
-		public HttpResponseMessage Put(Preference preference)
+		public HttpResponseMessage Delete(Preference preference)
 		{
 			SprocPreference.delete(this.connection, preference.eventId, preference.field);
 			return Request.CreateResponse(HttpStatusCode.Created, true);

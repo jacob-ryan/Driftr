@@ -50,8 +50,14 @@
 			</tr>
 		</table>
 
+		<div class="alert alert-info" id="eventDetail-join-event">
+			You have <span></span> cars that meet the requirements for this event.
+			<button class="btn btn-sm btn-success hide2">Join Event</button>
+		</div>
+
 		<hr />
 
+		<button class="btn btn-sm btn-success pull-right" onclick="$('#add-container').slideDown();">Add Preference</button>
 		<h3>Preferences:</h3>
 		<table class="table" id="preferences-table">
 			<tr>
@@ -62,7 +68,7 @@
 			</tr>
 		</table>
 
-		<div class="col-md-4 hide2">
+		<div class="col-md-4 hide2" id="add-container">
 			<h3>Add Preference:</h3>
 			<form id="event-add" action="javascript: submitAdd();">
 				<div class="form-group">

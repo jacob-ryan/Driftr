@@ -40,6 +40,13 @@ namespace DriftrWebAPI.Controllers
 			return Request.CreateResponse(HttpStatusCode.Created, true);
 		}
 
+		// PUT: api/EventParticipant
+		public HttpResponseMessage Put(EventParticipant participant)
+		{
+			SprocEventParticipant.update(this.connection, participant.userEmail, participant.eventId, participant.placement);
+			return Request.CreateResponse(HttpStatusCode.Created, true);
+		}
+
 		// DELETE: api/EventParticpant/<id>?email=<email>
 		public HttpResponseMessage Delete(int id, string email)
 		{

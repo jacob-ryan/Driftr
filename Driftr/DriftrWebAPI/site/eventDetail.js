@@ -97,7 +97,11 @@
 					html += "<td>" + participant.userEmail + "</td>";
 					if (user.email == event.userEmail)
 					{
-						html += "<td><button class='btn btn-sm btn-danger' onclick='deleteParticipant(\"\");'>Remove</button></td>";
+						html += "<td>";
+						html += "<button class='btn btn-sm btn-primary' onclick='editParticipant(\"" + participant.userEmail + "\");'>Edit</button>";
+						html += "&ensp;";
+						html += "<button class='btn btn-sm btn-danger' onclick='deleteParticipant(\"" + participant.userEmail + "\");'>Remove</button>";
+						html += "</td>";
 					}
 					else
 					{
@@ -105,6 +109,27 @@
 					}
 					html += "</tr>";
 					$("#participants-table").append(html);
+				}
+			});
+
+			Driftr.api("GET", "VehiclesAllowed/" + eventId + "?email=" + user.email).done(function(count)
+			{
+				$("#eventDetail-join-event span").text(count);
+				if (count > 0)
+				{
+					$("#eventDetail-join-event button").show();
+					$("#eventDetail-join-event button").on("click", function()
+					{
+						var data = {
+							eventId: eventId,
+							userEmail: user.email,
+							placement: 0
+						};
+						Driftr.api("POST", "EventParticipant", data).done(function()
+						{
+							location.reload(true);
+						});
+					});
 				}
 			});
 		});
@@ -122,32 +147,30 @@
 		});
 	};
 
-	window.editEvent = function(id)
+	window.deleteParticipant = function(email)
 	{
-		window.editId = id;
+		Driftr.api("DELETE", "EventParticipant/" + eventId + "?email=" + email, null).done(function()
+		{
+			location.reload(true);
+		});
+	};
 
+	window.editParticipant = function(email)
+	{
 		Driftr.api("GET", "Login", null).done(function(user)
 		{
-			Driftr.api("GET", "Event/" + id, null).done(function(event)
-			{
-				$("#event-edit-theme").val(event.theme);
-				$("#event-edit-location").val(event.locationId);
-				$("#event-edit-date").val(new Date(event.date).toLocaleDateString());
-				$("#event-edit-description").val(event.description);
-				if (event.wasBusted)
-				{
-					$("#event-edit-wasBusted").attr("checked", "checked");
-				}
-				$("#edit-container").fadeIn();
-			});
-
-			Driftr.api("GET", "EventParticipant/" + id, null).done(function(participants)
+			Driftr.api("GET", "EventParticipant/" + eventId, null).done(function(participants)
 			{
 				for (var i = 0; i < participants.length; i += 1)
 				{
 					var participant = participants[i];
-					var html = "<li><input type='number'>&ensp;" + participant.userEmail + "</li>";
-					$("#event-edit-participants").append(html);
+					if (participant.userEmail == email)
+					{
+						$("#eventDetail-participant-placement").val(participant.placement);
+						$("#eventDetail-participant-email").val(participant.userEmail);
+						$("#edit-container").slideDown();
+						break;
+					}
 				}
 			});
 		});
@@ -155,41 +178,30 @@
 
 	window.submitAdd = function()
 	{
-		Driftr.api("GET", "Login", null).done(function(user)
-		{
-			var data = {
-				userEmail: user.email,
-				locationId: $("#event-add-location").val(),
-				date: $("#event-add-date").val(),
-				theme: $("#event-add-theme").val(),
-				description: $("#event-add-description").val(),
-				wasBusted: false
-			};
+		var data = {
+			eventId: eventId,
+			field: $("#eventDetail-preference-field").val(),
+			entries: $("#eventDetail-preference-values").val(),
+			isWhitelist: $("#eventDetail-preference-kind") == "whitelist"
+		};
 
-			Driftr.api("POST", "Event", data).done(function()
-			{
-				location.reload(true);
-			});
+		Driftr.api("POST", "Preference", data).done(function()
+		{
+			location.reload(true);
 		});
 	};
 
 	window.submitEdit = function()
 	{
-		Driftr.api("GET", "Login", null).done(function(user)
-		{
-			var data = {
-				userEmail: user.email,
-				locationId: $("#event-edit-location").val(),
-				date: $("#event-edit-date").val(),
-				theme: $("#event-edit-theme").val(),
-				description: $("#event-edit-description").val(),
-				wasBusted: $("#event-edit-wasBusted").is(":checked")
-			};
+		var data = {
+			eventId: eventId,
+			userEmail: $("#eventDetail-participant-email").val(),
+			placement: $("#eventDetail-participant-placement").val()
+		};
 
-			Driftr.api("PUT", "Event/" + window.editId, data).done(function()
-			{
-				location.reload(true);
-			});
+		Driftr.api("PUT", "EventParticipant", data).done(function()
+		{
+			location.reload(true);
 		});
 	};
 });
