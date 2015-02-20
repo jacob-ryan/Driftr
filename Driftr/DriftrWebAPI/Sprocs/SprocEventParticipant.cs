@@ -20,12 +20,20 @@ namespace DriftrWebAPI.Sprocs
 
 		public static void add(SqlConnection connection, string userEmail, int eventId, int? placement)
 		{
-			SqlCommand command = new SqlCommand("EXEC [insert_eventParticipant] @UserEmail, @EventId, @Placement;", connection);
+			SqlCommand command = new SqlCommand("EXEC @RETURN_VALUE = [insert_eventParticipant] @UserEmail, @EventId, @Placement;", connection);
 			command.Parameters.Add(new SqlParameter("@UserEmail", userEmail));
 			command.Parameters.Add(new SqlParameter("@EventId", eventId));
 			command.Parameters.Add(new SqlParameter("@Placement", placement));
 
-			command.ExecuteNonQuery();
+			command.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int)).Direction = ParameterDirection.Output;
+
+			command.ExecuteReader();
+
+			int returnValue = (int) command.Parameters["@RETURN_VALUE"].Value;
+			if (returnValue != 0)
+			{
+				throw new Exception("Error adding event participant");
+			}
 		}
 
 		public static void update(SqlConnection connection, string userEmail, int eventId, int? placement)

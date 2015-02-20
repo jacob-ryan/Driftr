@@ -36,8 +36,15 @@ namespace DriftrWebAPI.Controllers
 		// POST: api/EventParticipant
 		public HttpResponseMessage Post(EventParticipant participant)
 		{
-			SprocEventParticipant.add(this.connection, participant.userEmail, participant.eventId, participant.placement);
-			return Request.CreateResponse(HttpStatusCode.Created, true);
+			try
+			{
+				SprocEventParticipant.add(this.connection, participant.userEmail, participant.eventId, participant.placement);
+				return Request.CreateResponse(HttpStatusCode.Created, true);
+			}
+			catch (Exception e)
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+			}
 		}
 
 		// PUT: api/EventParticipant

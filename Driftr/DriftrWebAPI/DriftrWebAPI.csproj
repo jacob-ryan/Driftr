@@ -228,13 +228,12 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="site\background.png" />
+    <Content Include="site\Chat.html" />
     <Content Include="site\common.js" />
     <Content Include="site\dashboard.html" />
     <Content Include="site\dashboard.js" />
     <Content Include="site\eventDetail.html" />
     <Content Include="site\eventDetail.js" />
-    <Content Include="site\locations.html" />
-    <Content Include="site\locations.js" />
     <Content Include="site\events.html" />
     <Content Include="site\events.js" />
     <Content Include="site\friends.html" />
@@ -242,6 +241,9 @@
     <Content Include="site\index.html" />
     <Content Include="site\index.js" />
     <Content Include="site\jquery.validate.min.js" />
+    <Content Include="site\locations.css" />
+    <Content Include="site\locations.html" />
+    <Content Include="site\locations.js" />
     <Content Include="site\logout.html" />
     <Content Include="site\logout.js" />
     <Content Include="site\profile.html" />
