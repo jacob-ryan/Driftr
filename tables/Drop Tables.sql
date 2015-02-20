@@ -8,3 +8,11 @@ DROP TABLE [Location]
 DROP TABLE [Friend]
 DROP TABLE [Vehicle]
 DROP TABLE [User]
+
+-------------------------------------------------------
+-- INDEXES --
+-------------------------------------------------------
+
+DROP INDEX index_Vehicle_make ON [Vehicle]
+DROP INDEX index_Vehicle_model ON [Vehicle]
+DROP INDEX index_Vehicle_color ON [Vehicle]
