@@ -15,7 +15,7 @@ AS
 -- Check if parameters are valid --
 IF (@Email_1 IS NULL) OR ((SELECT count(*) FROM [User] WHERE email = @Email_1) > 0)
 BEGIN
-	PRINT 'Email ' + @Email_1 + ' already in use'
+	PRINT 'Email address is already in use'
 	RETURN 1
 END
 

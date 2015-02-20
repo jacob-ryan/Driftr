@@ -36,8 +36,15 @@ namespace DriftrWebAPI.Controllers
 		// POST: api/Friend
 		public HttpResponseMessage Post(Friend friend)
 		{
-			SprocFriend.add(this.connection, friend.userEmailA, friend.userEmailB, friend.relation);
-			return Request.CreateResponse(HttpStatusCode.Created, true);
+			try
+			{
+				SprocFriend.add(this.connection, friend.userEmailA, friend.userEmailB, friend.relation);
+				return Request.CreateResponse(HttpStatusCode.Created, true);
+			}
+			catch (Exception e)
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+			}
 		}
 
 		// DELETE: api/Friend?email=<email>&otherEmail=<otherEmail>

@@ -43,12 +43,21 @@ namespace DriftrWebAPI.Controllers
 		}
 
 		// POST: api/User
-		public void Post(string password, User user)
+		public HttpResponseMessage Post(string password, User user)
 		{
-			byte[] salt = Passwords.createSalt(password);
-			byte[] hash = Passwords.createHash(password, salt);
+			try
+			{
+				byte[] salt = Passwords.createSalt(password);
+				byte[] hash = Passwords.createHash(password, salt);
 
-			SprocUser.add(this.connection, user.email, user.name, hash, salt);
+				SprocUser.add(this.connection, user.email, user.name, hash, salt);
+
+				return Request.CreateResponse(HttpStatusCode.Created, true);
+			}
+			catch (Exception e)
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+			}
 		}
 
 		// PUT: api/User?password=<new password>

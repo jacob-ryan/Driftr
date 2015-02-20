@@ -67,6 +67,10 @@
 
 			Driftr.api("GET", "Preference/" + eventId, null).done(function(preferences)
 			{
+				if (user.email == event.userEmail)
+				{
+					$("#eventDetail-add-preference").show();
+				}
 				for (var i = 0; i < preferences.length; i += 1)
 				{
 					var preference = preferences[i];
@@ -137,11 +141,7 @@
 
 	window.deletePreference = function(field)
 	{
-		var data = {
-			eventId: eventId,
-			field: field
-		};
-		Driftr.api("DELETE", "Preference", data).done(function()
+		Driftr.api("DELETE", "Preference/" + eventId + "?field=" + field, null).done(function()
 		{
 			location.reload(true);
 		});

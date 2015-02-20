@@ -27,13 +27,21 @@ namespace DriftrWebAPI.Sprocs
 
 		public static void add(SqlConnection connection, string email, string name, byte[] hash, byte[] salt)
 		{
-			SqlCommand command = new SqlCommand("EXEC [insert_user] @Email, @Name, @PasswordHash, @PasswordSalt;", connection);
+			SqlCommand command = new SqlCommand("EXEC @RETURN_VALUE = [insert_user] @Email, @Name, @PasswordHash, @PasswordSalt;", connection);
 			command.Parameters.Add(new SqlParameter("@Email", email));
 			command.Parameters.Add(new SqlParameter("@Name", name));
 			command.Parameters.Add(new SqlParameter("@PasswordHash", hash));
 			command.Parameters.Add(new SqlParameter("@PasswordSalt", salt));
 
-			command.ExecuteNonQuery();
+			command.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int)).Direction = ParameterDirection.Output;
+
+			command.ExecuteReader();
+
+			int returnValue = (int) command.Parameters["@RETURN_VALUE"].Value;
+			if (returnValue == 1)
+			{
+				throw new Exception("Email address is already in use");
+			}
 		}
 
 		public static void update(SqlConnection connection, string email, string name, byte[] hash, byte[] salt)

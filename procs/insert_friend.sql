@@ -14,13 +14,13 @@ AS
 -- Check if parameters are valid --
 IF (@userEmailA_1 IS NULL) OR ((SELECT count(*) FROM [User] WHERE email = @userEmailA_1) <= 0)
 BEGIN
-	PRINT 'Email ' + @userEmailA_1 + ' does not exist'
+	PRINT 'Email does not exist'
 	RETURN 1
 END
 
 IF (@userEmailB_2 IS NULL) OR ((SELECT count(*) FROM [User] WHERE email = @userEmailB_2) <= 0)
 BEGIN
-	PRINT 'Email ' + @userEmailB_2 + ' does not exist'
+	PRINT 'Email does not exist'
 	RETURN 1
 END
 

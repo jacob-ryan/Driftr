@@ -41,10 +41,10 @@ namespace DriftrWebAPI.Controllers
 			return Request.CreateResponse(HttpStatusCode.Created, true);
 		}
 
-		// DELETE: api/Preference
-		public HttpResponseMessage Delete(Preference preference)
+		// DELETE: api/Preference/<id>?field=<field>
+		public HttpResponseMessage Delete(int id, string field)
 		{
-			SprocPreference.delete(this.connection, preference.eventId, preference.field);
+			SprocPreference.delete(this.connection, id, field);
 			return Request.CreateResponse(HttpStatusCode.Created, true);
 		}
 	}

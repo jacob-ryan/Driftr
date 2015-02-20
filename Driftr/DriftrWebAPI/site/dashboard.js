@@ -1,13 +1,5 @@
 ﻿$(document).ready(function()
 {
-	var getLocation = function(event)
-	{
-		Driftr.api("GET", "Location/" + event.locationId, null).done(function(location)
-		{
-			$("#dashboard-events").append("<li>" + new Date(event.date).toLocaleDateString() + " @ " + location.address + " - " + event.theme + " (" + event.description + ")</li>");
-		});
-	};
-
 	Driftr.api("GET", "Login", null).done(function(user)
 	{
 		$("#dashboard-name").text(user.name);
@@ -37,7 +29,7 @@
 					for (var k = 0; k < events.length; k += 1)
 					{
 						var event = events[k];
-						getLocation(event);
+						$("#dashboard-events").append("<li>" + new Date(event.date).toLocaleDateString() + " @ " + event.address + " - " + event.theme + " (" + event.description + ")</li>");
 					}
 				});
 			});

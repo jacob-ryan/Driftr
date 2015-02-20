@@ -20,12 +20,24 @@ namespace DriftrWebAPI.Sprocs
 
 		public static void add(SqlConnection connection, string userEmailA, string userEmailB, string relation)
 		{
-			SqlCommand command = new SqlCommand("EXEC [insert_friend] @UserEmailA, @UserEmailB, @Relation;", connection);
+			SqlCommand command = new SqlCommand("EXEC @RETURN_VALUE = [insert_friend] @UserEmailA, @UserEmailB, @Relation;", connection);
 			command.Parameters.Add(new SqlParameter("@UserEmailA", userEmailA));
 			command.Parameters.Add(new SqlParameter("@UserEmailB", userEmailB));
 			command.Parameters.Add(new SqlParameter("@Relation", relation));
 
-			command.ExecuteNonQuery();
+			command.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int)).Direction = ParameterDirection.Output;
+
+			command.ExecuteReader();
+
+			int returnValue = (int) command.Parameters["@RETURN_VALUE"].Value;
+			if (returnValue == 1)
+			{
+				throw new Exception("Email address does not exist");
+			}
+			if (returnValue == 4)
+			{
+				throw new Exception("Friend already exists");
+			}
 		}
 
 		public static void delete(SqlConnection connection, string userEmailA, string userEmailB)
