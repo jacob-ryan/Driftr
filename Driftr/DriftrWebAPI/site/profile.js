@@ -33,7 +33,7 @@
 			},
 			"profile-password-confirm": {
 				required: true,
-				maxlength: 255
+				equalTo: "#profile-password"
 			}
 		}
 	});

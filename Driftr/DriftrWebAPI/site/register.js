@@ -30,6 +30,10 @@
 			"register-password": {
 				required: true,
 				maxlength: 255
+			},
+			"register-password-confirm": {
+				required: true,
+				equalTo: "#register-password"
 			}
 		}
 	});

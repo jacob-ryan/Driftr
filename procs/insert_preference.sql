@@ -14,9 +14,9 @@ AS
 
 -- Check if parameters are valid --
 
-IF (@eventId_1 IS NULL) OR ((SELECT count(*) FROM [Preferences] WHERE eventId = @eventId_1) <= 0)
+IF (@eventId_1 IS NULL)
 BEGIN
-	PRINT 'EventId ' + @eventid_1 + ' does not exist'
+	PRINT 'EventId does not exist'
 	RETURN 1
 END
 
