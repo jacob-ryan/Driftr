@@ -85,3 +85,19 @@ CREATE TABLE [Preferences]
 	PRIMARY KEY(eventId, field),
 	FOREIGN KEY(eventId) REFERENCES [Event](id)
 );
+
+-------------------------------------------------------
+-- INDEXES --
+-------------------------------------------------------
+
+CREATE NONCLUSTERED INDEX index_Vehicle_make
+	ON [Vehicle] (make)
+		WITH(FILLFACTOR = 90)
+
+CREATE NONCLUSTERED INDEX index_Vehicle_model
+	ON [Vehicle] (model)
+		WITH(FILLFACTOR = 90)
+
+CREATE NONCLUSTERED INDEX index_Vehicle_color
+	ON [Vehicle] (color)
+		WITH(FILLFACTOR = 90)
