@@ -25,7 +25,7 @@ BEGIN
 END
 
 DELETE FROM [Preferences]
-WHERE eventId = @eventId_1 AND field = @field_2
+WHERE (eventId = @eventId_1) AND (field = @field_2)
 
 RETURN 0
 GO
